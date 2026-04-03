@@ -1,0 +1,6 @@
+pandas
+numpy
+pyarrow
+clickhouse-connect
+python-dotenv
+minio

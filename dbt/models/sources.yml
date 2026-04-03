@@ -1,0 +1,63 @@
+version: 2
+
+sources:
+  - name: warehouse
+    database: default          # ClickHouse: databases are schemas in dbt-clickhouse
+    schema: warehouse
+    description: "Normalized warehouse layer — dims and facts loaded by load_warehouse_incremental.py"
+    tables:
+      - name: dim_accounts
+        description: "Account dimension from CRM system"
+        columns:
+          - name: account_id
+            description: "Primary key"
+            tests: [unique, not_null]
+          - name: signup_date
+            tests: [not_null]
+
+      - name: dim_plans
+        description: "Plan tier reference table"
+        columns:
+          - name: plan_tier
+            tests: [unique, not_null]
+
+      - name: fact_subscriptions
+        description: "All subscription events: upgrades, downgrades, churn, MRR"
+        columns:
+          - name: subscription_id
+            tests: [unique, not_null]
+          - name: account_id
+            tests: [not_null]
+          - name: mrr_amount
+            tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0"
+
+      - name: fact_churn_events
+        description: "Churn events with reason codes and refund amounts"
+        columns:
+          - name: churn_event_id
+            tests: [unique, not_null]
+          - name: account_id
+            tests: [not_null]
+          - name: refund_amount_usd
+            tests:
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0"
+
+      - name: fact_feature_usage
+        description: "Feature usage logs from application"
+        columns:
+          - name: usage_id
+            tests: [unique, not_null]
+          - name: subscription_id
+            tests: [not_null]
+
+      - name: fact_support_tickets
+        description: "Customer support tickets with resolution metrics"
+        columns:
+          - name: ticket_id
+            tests: [unique, not_null]
+          - name: account_id
+            tests: [not_null]

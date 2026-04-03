@@ -1,0 +1,37 @@
+name: 'saas_analytics'
+version: '1.0.0'
+config-version: 2
+
+profile: 'saas_analytics'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  saas_analytics:
+    # Staging models — mirror of ClickHouse staging layer (sources only, no transform)
+    staging:
+      +schema: staging
+      +materialized: view          # lightweight views over staging tables
+      +tags: ['staging']
+
+    # Mart models — incremental aggregations
+    mart:
+      +schema: mart
+      +materialized: incremental   # only process new data by default
+      +tags: ['mart']
+      +on_schema_change: append_new_columns
+
+vars:
+  # Date range for full-refresh fallback
+  pipeline_start_date: '2024-01-01'
+  pipeline_end_date:   '2026-12-31'

@@ -1,0 +1,11 @@
+{
+  "name": "SaaS ClickHouse",
+  "engine": "clickhouse",
+  "details": {
+    "host": "clickhouse-saas",
+    "port": 8123,
+    "dbname": "staging",
+    "user": "default",
+    "password": "password123"
+  }
+}

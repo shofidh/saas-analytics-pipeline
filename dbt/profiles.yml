@@ -1,0 +1,22 @@
+saas_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: mart                    # default schema (overridden per model)
+      host: "{{ env_var('CH_HOST', 'clickhouse-saas') }}"
+      port: "{{ env_var('CH_PORT', '8123') | int }}"
+      user: "{{ env_var('CH_USER', 'default') }}"
+      password: "{{ env_var('CH_PASSWORD', 'password123') }}"
+      secure: False
+      verify: False
+      connect_timeout: 10
+      send_receive_timeout: 300
+      sync_request_timeout: 5
+      compress_block_size: 1048576
+      compression: ''
+      driver: http
+      custom_settings:
+        # Allow mutations (DELETE) used in incremental strategy
+        allow_experimental_lightweight_delete: 1
+        mutations_sync: 1
