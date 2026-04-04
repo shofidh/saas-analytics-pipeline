@@ -64,6 +64,55 @@ services:
       retries: 10
       start_period: 30s
 
+  # ── ClickHouse Init — Apply DDL idempotently on every startup ───────────────
+  # Needed because docker-entrypoint-initdb.d only runs on first volume init.
+  # This service re-applies the full DDL (CREATE IF NOT EXISTS) every time,
+  # so adding new databases/tables after a rename works without wiping volumes.
+  clickhouse-init:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-init-saas
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    volumes:
+      - ./airflow/sql/ddl_warehouse.sql:/tmp/ddl_warehouse.sql
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        clickhouse-client \
+          --host clickhouse-saas \
+          --port 9000 \
+          --user default \
+          --password password123 \
+          --multiquery < /tmp/ddl_warehouse.sql &&
+        echo "ClickHouse DDL applied."
+    networks:
+      - saas-net
+
+  # ── Data Init — Generate raw CSVs & reset all watermarks ───────────────────
+  data-init:
+    build: ./python
+    container_name: data-init-saas
+    environment:
+      RAW_DATA_DIR: /app/data/raw_data
+      WATERMARK_DIR: /app/data/watermarks
+    volumes:
+      - ./data:/app/data
+      - ./python:/app
+    working_dir: /app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        echo '=== Generating raw data ===' &&
+        python data_generator.py &&
+        echo '=== Resetting watermarks ===' &&
+        python reset_watermarks.py &&
+        echo '=== Data init complete ==='
+    networks:
+      - saas-net
+
   # ── Python ETL Container ────────────────────────────────────────────────────
   python-etl:
     build: ./python
@@ -144,6 +193,10 @@ services:
         condition: service_healthy
       minio:
         condition: service_healthy
+      clickhouse-init:
+        condition: service_completed_successfully
+      data-init:
+        condition: service_completed_successfully
     networks:
       - saas-net
 

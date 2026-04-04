@@ -2,11 +2,12 @@
   config(
     materialized  = 'incremental',
     schema        = 'mart',
+    alias         = 'mrr_monthly',
     engine        = 'ReplacingMergeTree()',
     order_by      = '(year, month, plan_tier)',
     unique_key    = ['year', 'month', 'plan_tier'],
     incremental_strategy = 'delete+insert',
-    on_schema_change = 'append_new_columns'
+    on_schema_change = 'sync_all_columns'
   )
 }}
 

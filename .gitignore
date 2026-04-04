@@ -1,3 +1,10 @@
 .venv/
 __pycache__/
 *.pyc
+
+# Generated raw data — reproduced by data_generator.py on startup
+data/raw_data/
+
+# MinIO local storage — reproduced by docker compose volumes
+data/saas-raw/
+data/.minio.sys/

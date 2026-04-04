@@ -339,12 +339,11 @@ print("churn_df:", churn_df.shape)
 print("usage_df:", usage_df.shape)
 print("ticket_df:", ticket_df.shape)
 
-# 1. Define the base path
-output_path = r"data\raw_data"
+# 1. Define the base path (env var overrides hardcoded default for Docker)
+output_path = os.getenv("RAW_DATA_DIR", os.path.join("data", "raw_data"))
 
 # 2. Ensure the directory exists (prevents errors)
-if not os.path.exists(output_path):
-    os.makedirs(output_path)
+os.makedirs(output_path, exist_ok=True)
 
 # 3. Save each DataFrame
 account_df.to_csv(os.path.join(output_path, "accounts.csv"), index=False)

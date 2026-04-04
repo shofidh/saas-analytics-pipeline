@@ -141,6 +141,8 @@ CREATE TABLE IF NOT EXISTS production.dim_accounts
     is_trial            UInt8,
     churn_flag          UInt8,
     _source_system      String,
+    _ingestion_time     String,
+    _batch_id           String,
     _updated_at         UInt64
 )
 ENGINE = ReplacingMergeTree(_updated_at)
@@ -246,6 +248,8 @@ CREATE TABLE IF NOT EXISTS production.fact_subscriptions
     subscription_sequence   Int32,
     days_active             Int32,
     _source_system          String,
+    _ingestion_time         String,
+    _batch_id               String,
     _updated_at             UInt64
 )
 ENGINE = ReplacingMergeTree(_updated_at)
@@ -264,6 +268,8 @@ CREATE TABLE IF NOT EXISTS production.fact_churn_events
     is_reactivation             UInt8,
     feedback_text               Nullable(String),
     _source_system              String,
+    _ingestion_time             String,
+    _batch_id                   String,
     _updated_at                 UInt64
 )
 ENGINE = ReplacingMergeTree(_updated_at)
@@ -281,6 +287,8 @@ CREATE TABLE IF NOT EXISTS production.fact_feature_usage
     error_count             Int32,
     is_beta_feature         UInt8,
     _source_system          String,
+    _ingestion_time         String,
+    _batch_id               String,
     _updated_at             UInt64
 )
 ENGINE = ReplacingMergeTree(_updated_at)
@@ -299,6 +307,8 @@ CREATE TABLE IF NOT EXISTS production.fact_support_tickets
     satisfaction_score              Nullable(Float64),
     escalation_flag                 UInt8,
     _source_system                  String,
+    _ingestion_time                 String,
+    _batch_id                       String,
     _updated_at                     UInt64
 )
 ENGINE = ReplacingMergeTree(_updated_at)
@@ -315,9 +325,9 @@ CREATE TABLE IF NOT EXISTS mart.mrr_monthly
     year                UInt16,
     month               UInt8,
     plan_tier           String,
-    active_accounts     UInt32,
-    new_accounts        UInt32,
-    churned_accounts    UInt32,
+    active_accounts     UInt64,
+    new_accounts        UInt64,
+    churned_accounts    UInt64,
     total_mrr           Float64,
     total_arr           Float64,
     avg_mrr_per_account Float64,
@@ -327,19 +337,27 @@ CREATE TABLE IF NOT EXISTS mart.mrr_monthly
 ENGINE = ReplacingMergeTree(_refreshed_at)
 ORDER BY (year, month, plan_tier);
 
+-- Fix type mismatches on existing tables (no-op if types already match)
+ALTER TABLE mart.mrr_monthly MODIFY COLUMN active_accounts  UInt64;
+ALTER TABLE mart.mrr_monthly MODIFY COLUMN new_accounts     UInt64;
+ALTER TABLE mart.mrr_monthly MODIFY COLUMN churned_accounts UInt64;
+
 CREATE TABLE IF NOT EXISTS mart.churn_summary
 (
     year                UInt16,
     month               UInt8,
     reason_code         String,
-    churn_count         UInt32,
+    churn_count         UInt64,
     total_refund_usd    Float64,
-    reactivation_count  UInt32,
+    reactivation_count  UInt64,
     churn_rate_pct      Float64,
     _refreshed_at       DateTime DEFAULT now()
 )
 ENGINE = ReplacingMergeTree(_refreshed_at)
 ORDER BY (year, month, reason_code);
+
+ALTER TABLE mart.churn_summary MODIFY COLUMN churn_count        UInt64;
+ALTER TABLE mart.churn_summary MODIFY COLUMN reactivation_count UInt64;
 
 CREATE TABLE IF NOT EXISTS mart.feature_usage_summary
 (
@@ -364,14 +382,17 @@ CREATE TABLE IF NOT EXISTS mart.customer_health_score
     plan_tier               String,
     country                 String,
     industry                String,
-    health_score            Float64,
+    health_score            Int64,
     mrr_last_month          Float64,
     avg_satisfaction        Nullable(Float64),
     total_usage_30d         UInt32,
     open_high_tickets       UInt32,
     churn_risk              String,
-    days_since_last_activity Int32,
+    days_since_last_activity Int64,
     _refreshed_at           DateTime DEFAULT now()
 )
 ENGINE = ReplacingMergeTree(_refreshed_at)
 ORDER BY account_id;
+
+ALTER TABLE mart.customer_health_score MODIFY COLUMN health_score             Int64;
+ALTER TABLE mart.customer_health_score MODIFY COLUMN days_since_last_activity Int64;

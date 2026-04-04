@@ -2,11 +2,12 @@
   config(
     materialized  = 'incremental',
     schema        = 'mart',
+    alias         = 'customer_health_score',
     engine        = 'ReplacingMergeTree()',
     order_by      = '(account_id)',
     unique_key    = 'account_id',
     incremental_strategy = 'delete+insert',
-    on_schema_change = 'append_new_columns'
+    on_schema_change = 'sync_all_columns'
   )
 }}
 

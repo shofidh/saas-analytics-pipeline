@@ -2,11 +2,12 @@
   config(
     materialized  = 'incremental',
     schema        = 'mart',
+    alias         = 'churn_summary',
     engine        = 'ReplacingMergeTree()',
     order_by      = '(year, month, reason_code)',
     unique_key    = ['year', 'month', 'reason_code'],
     incremental_strategy = 'delete+insert',
-    on_schema_change = 'append_new_columns'
+    on_schema_change = 'sync_all_columns'
   )
 }}
 

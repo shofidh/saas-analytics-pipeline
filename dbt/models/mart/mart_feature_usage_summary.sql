@@ -2,11 +2,12 @@
   config(
     materialized  = 'incremental',
     schema        = 'mart',
+    alias         = 'feature_usage_summary',
     engine        = 'ReplacingMergeTree()',
     order_by      = '(year, month, feature_name)',
     unique_key    = ['year', 'month', 'feature_name'],
     incremental_strategy = 'delete+insert',
-    on_schema_change = 'append_new_columns'
+    on_schema_change = 'sync_all_columns'
   )
 }}
 
