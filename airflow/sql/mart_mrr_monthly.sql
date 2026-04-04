@@ -29,7 +29,7 @@ active_subs AS (
         subscription_sequence,
         toYear(start_date)  AS sub_year,
         toMonth(start_date) AS sub_month
-    FROM warehouse.fact_subscriptions FINAL
+    FROM production.fact_subscriptions FINAL
     WHERE
         toYear(start_date)  <= {year:UInt16}
         AND toMonth(start_date) <= {month:UInt8}
@@ -43,7 +43,7 @@ active_subs AS (
 -- New accounts that started in this month
 new_accts AS (
     SELECT account_id
-    FROM warehouse.fact_subscriptions FINAL
+    FROM production.fact_subscriptions FINAL
     WHERE toYear(start_date) = {year:UInt16}
       AND toMonth(start_date) = {month:UInt8}
       AND subscription_sequence = 1      -- very first subscription
@@ -53,7 +53,7 @@ new_accts AS (
 -- Churned accounts in this month
 churned_accts AS (
     SELECT account_id
-    FROM warehouse.fact_churn_events FINAL
+    FROM production.fact_churn_events FINAL
     WHERE toYear(churn_date) = {year:UInt16}
       AND toMonth(churn_date) = {month:UInt8}
     GROUP BY account_id

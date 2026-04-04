@@ -81,7 +81,7 @@ def task_load_warehouse(**context) -> None:
 # ─────────────────────────────────────────────────────────────
 with DAG(
     dag_id="saas_incremental_pipeline",
-    description="Incremental SaaS pipeline: CSV → MinIO → staging → warehouse → dbt marts",
+    description="Incremental SaaS pipeline: CSV → MinIO → staging → production → dbt marts",
     default_args=default_args,
     schedule_interval="@daily",
     start_date=datetime(2024, 1, 2),
@@ -98,6 +98,7 @@ with DAG(
 ingest_raw_to_minio → transform_to_staging → data_quality_checks
     → load_warehouse → dbt_run_marts → pipeline_complete
 ```
+(staging → production → mart)
 
 **Re-run**: Safe — all tasks are idempotent (watermark + ReplacingMergeTree).
 
@@ -141,8 +142,8 @@ airflow dags backfill saas_incremental_pipeline \\
     dbt_run = BashOperator(
         task_id="dbt_run_marts",
         bash_command=(
-            "docker exec dbt-saas bash -c "
-            "'cd /usr/app/dbt && dbt run --select mart --profiles-dir .'"
+            "cd /opt/dbt && dbt run --select mart --profiles-dir ."
+            " --log-path /tmp/dbt-logs --target-path /tmp/dbt-target"
         ),
         doc_md="Run dbt incremental models: mrr_monthly, churn_summary, feature_usage_summary, customer_health_score.",
     )

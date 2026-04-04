@@ -31,10 +31,13 @@ churn_events AS (
         count()                         AS churn_count,
         sum(refund_amount_usd)          AS total_refund_usd,
         countIf(is_reactivation = 1)    AS reactivation_count
-    FROM {{ source('warehouse', 'fact_churn_events') }} FINAL
+    FROM {{ source('production', 'fact_churn_events') }} FINAL
     WHERE 1 = 1
     {% if is_incremental() %}
-      AND toYYYYMM(churn_date) >= toYYYYMM(now() - toIntervalMonth(1))
+      AND toYYYYMM(churn_date) >= (
+        SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+        FROM {{ this }}
+      )
     {% endif %}
     GROUP BY year, month, reason_code
 ),
@@ -45,10 +48,13 @@ active_counts AS (
         toYear(start_date)  AS year,
         toMonth(start_date) AS month,
         countDistinct(account_id) AS active_cnt
-    FROM {{ source('warehouse', 'fact_subscriptions') }} FINAL
+    FROM {{ source('production', 'fact_subscriptions') }} FINAL
     WHERE 1 = 1
     {% if is_incremental() %}
-      AND toYYYYMM(start_date) >= toYYYYMM(now() - toIntervalMonth(1))
+      AND toYYYYMM(start_date) >= (
+        SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+        FROM {{ this }}
+      )
     {% endif %}
     GROUP BY year, month
 )

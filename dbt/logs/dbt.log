@@ -4350,3 +4350,2163 @@ ORDER BY a.year, a.month, total_mrr DESC
 [0m14:38:56.895878 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x75481018c1c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x75480f22f3a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x754810053220>]}
 [0m14:38:56.897133 [debug] [MainThread]: Flushing usage events
 [0m14:38:58.144425 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m20:46:15.280032 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec3ac01c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec287ffa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec287ff40>]}
+
+
+============================== 20:46:15.302687 | 5e06be75-fb00-42ed-9acb-6af13def2128 ==============================
+[0m20:46:15.302687 [info ] [MainThread]: Running with dbt=1.11.7
+[0m20:46:15.308328 [debug] [MainThread]: running dbt with arguments {'log_path': '/usr/app/dbt/logs', 'target_path': 'None', 'log_cache_events': 'False', 'profiles_dir': '/usr/app/dbt', 'introspect': 'True', 'warn_error': 'None', 'fail_fast': 'False', 'printer_width': '80', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_format': 'default', 'write_json': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt run', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True', 'use_colors': 'True', 'quiet': 'False', 'cache_selected_only': 'False', 'use_experimental_parser': 'False', 'version_check': 'True', 'partial_parse': 'True', 'empty': 'False', 'debug': 'False'}
+[0m20:46:15.728908 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec2b36e30>]}
+[0m20:46:15.836705 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec2b373a0>]}
+[0m20:46:15.843028 [info ] [MainThread]: Registered adapter: clickhouse=1.10.0
+[0m20:46:15.977051 [debug] [MainThread]: checksum: b80718358155fc17c3559352095564dd56ada1cc1a1c0ef2e62c857e71583775, vars: {}, profile: , target: , version: 1.11.7
+[0m20:46:16.629327 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m20:46:16.632475 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m20:46:16.636606 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m20:46:16.663000 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.saas_analytics.staging
+[0m20:46:16.836716 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec241a200>]}
+[0m20:46:17.129763 [debug] [MainThread]: Wrote artifact WritableManifest to /usr/app/dbt/target/manifest.json
+[0m20:46:17.155731 [debug] [MainThread]: Wrote artifact SemanticManifest to /usr/app/dbt/target/semantic_manifest.json
+[0m20:46:17.288948 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec21e36a0>]}
+[0m20:46:17.294070 [info ] [MainThread]: Found 4 models, 45 data tests, 6 sources, 523 macros
+[0m20:46:17.297012 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec21e3190>]}
+[0m20:46:17.304809 [info ] [MainThread]: 
+[0m20:46:17.308791 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m20:46:17.312200 [info ] [MainThread]: 
+[0m20:46:17.315664 [debug] [MainThread]: Acquiring new clickhouse connection 'master'
+[0m20:46:17.331484 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list_'
+[0m20:46:17.353906 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m20:46:17.884089 [debug] [ThreadPool]: dbt_clickhouse adapter: On list_: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "connection_name": "list_"} */
+
+    select name from system.databases
+  ...
+[0m20:46:17.894614 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m20:46:17.950233 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_, now list__mart_mart)
+[0m20:46:17.971672 [debug] [ThreadPool]: dbt_clickhouse adapter: On list__mart_mart: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "connection_name": "list__mart_mart"} */
+with mv_sources as (
+      -- Find all MVs and their target tables (database and name of the MV, plus the SELECT SQL)
+      select
+        name as mv_name,
+        database as mv_database,
+        any(as_select) as mv_sql,
+        any(replaceRegexpOne(create_table_query, '.*TO\\s+`?([^`\\s(]+)`?\\.`?([^`\\s(]+)`?.*', '\\1.\\2')) as target_fqn
+      
+      from system.tables
+      
+      where engine = 'MaterializedView'
+        and create_table_query like '%TO %'
+      group by mv_name, mv_database
+    )
+    select
+      t.name as name,
+      t.database as schema,
+      multiIf(
+        t.engine = 'MaterializedView', 'materialized_view',
+        t.engine = 'View', 'view',
+        t.engine = 'Dictionary', 'dictionary',
+        'table'
+      ) as type,
+      db.engine as db_engine,
+      groupArrayIf(
+        map('schema', mv_sources.mv_database, 'name', mv_sources.mv_name, 'sql', mv_sources.mv_sql),
+        mv_sources.mv_name != ''
+      ) as mvs_pointing_to_it,0 as is_on_cluster
+        from system.tables as t
+      
+        join system.databases as db on t.database = db.name
+        left join mv_sources on mv_sources.target_fqn = concat(t.database, '.', t.name)
+      where schema = 'mart_mart'
+      group by name, schema, type, db_engine
+
+  ...
+[0m20:46:18.525833 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.55 seconds
+[0m20:46:18.530776 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec57f7790>]}
+[0m20:46:18.552598 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_churn_summary
+[0m20:46:18.555677 [info ] [Thread-1 (]: 1 of 4 START sql incremental model `mart_mart`.`mart_churn_summary` ............ [RUN]
+[0m20:46:18.559983 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list__mart_mart, now model.saas_analytics.mart_churn_summary)
+[0m20:46:18.562088 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_churn_summary
+[0m20:46:18.586723 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_churn_summary"
+[0m20:46:18.607163 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_churn_summary
+[0m20:46:18.887753 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_churn_summary: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_churn_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_churn_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, reason_code))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_churn_summary
+  ==================
+  Grain : year × month × reason_code
+  Metrics:
+    - churn_count        : number of churn events
+    - total_refund_usd   : total refunds issued
+    - reactivation_count : how many came back after churning
+    - churn_rate_pct     : churned / active_at_start × 100
+*/
+
+WITH
+
+churn_events AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        reason_code,
+        count()                         AS churn_count,
+        sum(refund_amount_usd)          AS total_refund_usd,
+        countIf(is_reactivation = 1)    AS reactivation_count
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month, reason_code
+),
+
+-- Active account count at the start of each target month (denominator)
+active_counts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        countDistinct(account_id) AS active_cnt
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month
+)
+
+SELECT
+    c.year,
+    c.month,
+    c.reason_code,
+    c.churn_count,
+    round(c.total_refund_usd, 2)                                AS total_refund_usd,
+    c.reactivation_count,
+    round(
+        if(a.active_cnt > 0, (c.churn_count / a.active_cnt) * 100, 0),
+        2
+    )                                                           AS churn_rate_pct,
+    now()                                                       AS _refreshed_at
+FROM churn_events c
+LEFT JOIN active_counts a
+  ON c.year = a.year AND c.month = a.month
+ORDER BY c.year, c.month, c.churn_count DESC
+          )
+        
+        ...
+[0m20:46:19.006998 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_churn_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_churn_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, reason_code))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_churn_summary
+  ==================
+  Grain : year × month × reason_code
+  Metrics:
+    - churn_count        : number of churn events
+    - total_refund_usd   : total refunds issued
+    - reactivation_count : how many came back after churning
+    - churn_rate_pct     : churned / active_at_start × 100
+*/
+
+WITH
+
+churn_events AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        reason_code,
+        count()                         AS churn_count,
+        sum(refund_amount_usd)          AS total_refund_usd,
+        countIf(is_reactivation = 1)    AS reactivation_count
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month, reason_code
+),
+
+-- Active account count at the start of each target month (denominator)
+active_counts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        countDistinct(account_id) AS active_cnt
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month
+)
+
+SELECT
+    c.year,
+    c.month,
+    c.reason_code,
+    c.churn_count,
+    round(c.total_refund_usd, 2)                                AS total_refund_usd,
+    c.reactivation_count,
+    round(
+        if(a.active_cnt > 0, (c.churn_count / a.active_cnt) * 100, 0),
+        2
+    )                                                           AS churn_rate_pct,
+    now()                                                       AS _refreshed_at
+FROM churn_events c
+LEFT JOIN active_counts a
+  ON c.year = a.year AND c.month = a.month
+ORDER BY c.year, c.month, c.churn_count DESC
+          )
+        
+        
+[0m20:46:19.039928 [debug] [Thread-1 (]: Database Error in model mart_churn_summary (models/mart/mart_churn_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_churn_events' in scope  churn_events AS c. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m20:46:19.047181 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec22e4d90>]}
+[0m20:46:19.052870 [error] [Thread-1 (]: 1 of 4 ERROR creating sql incremental model `mart_mart`.`mart_churn_summary` ... [[31mERROR[0m in 0.48s]
+[0m20:46:19.060523 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_churn_summary
+[0m20:46:19.065091 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_customer_health_score
+[0m20:46:19.066600 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_churn_summary' to be skipped because of status 'error'.  Reason: Database Error in model mart_churn_summary (models/mart/mart_churn_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_churn_events' in scope  churn_events AS c. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123).
+[0m20:46:19.072763 [info ] [Thread-1 (]: 2 of 4 START sql incremental model `mart_mart`.`mart_customer_health_score` .... [RUN]
+[0m20:46:19.088522 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.saas_analytics.mart_churn_summary, now model.saas_analytics.mart_customer_health_score)
+[0m20:46:19.096156 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_customer_health_score
+[0m20:46:19.127656 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_customer_health_score"
+[0m20:46:19.187733 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_customer_health_score
+[0m20:46:19.207996 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_customer_health_score: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_customer_health_score"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_customer_health_score`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((account_id))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_customer_health_score
+  ==========================
+  Grain : account_id (latest snapshot per account)
+
+  Health Score Formula (0–100):
+    base  =  50
+    +15   active subscription (churn_flag = 0)
+    +10   paying customer (mrr > 0)
+    +10   avg satisfaction ≥ 4.0
+    +10   used at least 1 feature in last 30 days
+    -15   churned (churn_flag = 1)
+    -10   has open high-priority tickets
+    -10   no activity in last 90 days
+
+  Churn risk label:
+    'high'   → churn_flag = 1 OR no usage in 30d
+    'medium' → no activity 90d OR satisfaction < 3
+    'low'    → everything else
+
+  Incremental: only recalculates accounts that had new events
+  (subscription start, churn, or ticket) in the latest batch window.
+*/
+
+-- Affected accounts: had new activity in the batch period
+WITH affected AS (
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE 1 = 1
+    
+),
+
+-- Latest subscription per account (most recent start_date)
+latest_sub AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        churn_flag,
+        start_date,
+        ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY start_date DESC) AS rn
+    FROM `default`.`fact_subscriptions` FINAL
+),
+latest_sub_1 AS (
+    SELECT * FROM latest_sub WHERE rn = 1
+),
+
+-- Feature usage in last 30 days (linked via subscription → account)
+usage_30d AS (
+    SELECT
+        s.account_id,
+        sum(u.usage_count) AS usage_cnt
+    FROM `default`.`fact_feature_usage` FINAL u
+    JOIN `default`.`fact_subscriptions` FINAL s
+      ON u.subscription_id = s.subscription_id
+    WHERE u.usage_date >= (today() - 30)
+    GROUP BY s.account_id
+),
+
+-- Average satisfaction score per account
+avg_sat AS (
+    SELECT
+        account_id,
+        avg(satisfaction_score) AS avg_score
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE satisfaction_score IS NOT NULL
+    GROUP BY account_id
+),
+
+-- Open high-priority tickets per account
+high_tix AS (
+    SELECT
+        account_id,
+        countIf(priority = 'high' AND closed_at IS NULL) AS open_high_cnt
+    FROM `default`.`fact_support_tickets` FINAL
+    GROUP BY account_id
+),
+
+-- Days since last subscription activity
+last_activity AS (
+    SELECT
+        account_id,
+        max(start_date) AS last_sub_date
+    FROM `default`.`fact_subscriptions` FINAL
+    GROUP BY account_id
+)
+
+SELECT
+    a.account_id,
+    a.account_name,
+    coalesce(ls.plan_tier, a.plan_tier)                                     AS plan_tier,
+    a.country,
+    a.industry,
+
+    -- ── Health score ──────────────────────────────────────────────────────
+    greatest(0, least(100,
+          50
+        + if(ls.churn_flag = 0,    15, 0)
+        + if(ls.mrr_amount > 0,    10, 0)
+        + if(sat.avg_score >= 4.0, 10, 0)
+        + if(u30.usage_cnt > 0,    10, 0)
+        - if(ls.churn_flag = 1,    15, 0)
+        - if(ht.open_high_cnt > 0, 10, 0)
+        - if(dateDiff('day', la.last_sub_date, today()) > 90, 10, 0)
+    ))                                                                      AS health_score,
+
+    round(coalesce(ls.mrr_amount, 0), 2)                                    AS mrr_last_month,
+    round(sat.avg_score, 2)                                                 AS avg_satisfaction,
+    toUInt32(coalesce(u30.usage_cnt, 0))                                    AS total_usage_30d,
+    toUInt32(coalesce(ht.open_high_cnt, 0))                                 AS open_high_tickets,
+
+    -- ── Churn risk label ─────────────────────────────────────────────────
+    multiIf(
+        ls.churn_flag = 1,                                              'high',
+        coalesce(u30.usage_cnt, 0) = 0,                                'high',
+        dateDiff('day', la.last_sub_date, today()) > 90,               'medium',
+        coalesce(sat.avg_score, 5.0) < 3.0,                           'medium',
+        'low'
+    )                                                                       AS churn_risk,
+
+    dateDiff('day', la.last_sub_date, today())                              AS days_since_last_activity,
+    now()                                                                   AS _refreshed_at
+
+FROM `default`.`dim_accounts` FINAL a
+JOIN affected af ON a.account_id = af.account_id
+LEFT JOIN latest_sub_1 ls  ON a.account_id = ls.account_id
+LEFT JOIN usage_30d u30    ON a.account_id = u30.account_id
+LEFT JOIN avg_sat sat      ON a.account_id = sat.account_id
+LEFT JOIN high_tix ht      ON a.account_id = ht.account_id
+LEFT JOIN last_activity la ON a.account_id = la.account_id
+          )
+        
+        ...
+[0m20:46:19.241925 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_customer_health_score"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_customer_health_score`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((account_id))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_customer_health_score
+  ==========================
+  Grain : account_id (latest snapshot per account)
+
+  Health Score Formula (0–100):
+    base  =  50
+    +15   active subscription (churn_flag = 0)
+    +10   paying customer (mrr > 0)
+    +10   avg satisfaction ≥ 4.0
+    +10   used at least 1 feature in last 30 days
+    -15   churned (churn_flag = 1)
+    -10   has open high-priority tickets
+    -10   no activity in last 90 days
+
+  Churn risk label:
+    'high'   → churn_flag = 1 OR no usage in 30d
+    'medium' → no activity 90d OR satisfaction < 3
+    'low'    → everything else
+
+  Incremental: only recalculates accounts that had new events
+  (subscription start, churn, or ticket) in the latest batch window.
+*/
+
+-- Affected accounts: had new activity in the batch period
+WITH affected AS (
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE 1 = 1
+    
+),
+
+-- Latest subscription per account (most recent start_date)
+latest_sub AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        churn_flag,
+        start_date,
+        ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY start_date DESC) AS rn
+    FROM `default`.`fact_subscriptions` FINAL
+),
+latest_sub_1 AS (
+    SELECT * FROM latest_sub WHERE rn = 1
+),
+
+-- Feature usage in last 30 days (linked via subscription → account)
+usage_30d AS (
+    SELECT
+        s.account_id,
+        sum(u.usage_count) AS usage_cnt
+    FROM `default`.`fact_feature_usage` FINAL u
+    JOIN `default`.`fact_subscriptions` FINAL s
+      ON u.subscription_id = s.subscription_id
+    WHERE u.usage_date >= (today() - 30)
+    GROUP BY s.account_id
+),
+
+-- Average satisfaction score per account
+avg_sat AS (
+    SELECT
+        account_id,
+        avg(satisfaction_score) AS avg_score
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE satisfaction_score IS NOT NULL
+    GROUP BY account_id
+),
+
+-- Open high-priority tickets per account
+high_tix AS (
+    SELECT
+        account_id,
+        countIf(priority = 'high' AND closed_at IS NULL) AS open_high_cnt
+    FROM `default`.`fact_support_tickets` FINAL
+    GROUP BY account_id
+),
+
+-- Days since last subscription activity
+last_activity AS (
+    SELECT
+        account_id,
+        max(start_date) AS last_sub_date
+    FROM `default`.`fact_subscriptions` FINAL
+    GROUP BY account_id
+)
+
+SELECT
+    a.account_id,
+    a.account_name,
+    coalesce(ls.plan_tier, a.plan_tier)                                     AS plan_tier,
+    a.country,
+    a.industry,
+
+    -- ── Health score ──────────────────────────────────────────────────────
+    greatest(0, least(100,
+          50
+        + if(ls.churn_flag = 0,    15, 0)
+        + if(ls.mrr_amount > 0,    10, 0)
+        + if(sat.avg_score >= 4.0, 10, 0)
+        + if(u30.usage_cnt > 0,    10, 0)
+        - if(ls.churn_flag = 1,    15, 0)
+        - if(ht.open_high_cnt > 0, 10, 0)
+        - if(dateDiff('day', la.last_sub_date, today()) > 90, 10, 0)
+    ))                                                                      AS health_score,
+
+    round(coalesce(ls.mrr_amount, 0), 2)                                    AS mrr_last_month,
+    round(sat.avg_score, 2)                                                 AS avg_satisfaction,
+    toUInt32(coalesce(u30.usage_cnt, 0))                                    AS total_usage_30d,
+    toUInt32(coalesce(ht.open_high_cnt, 0))                                 AS open_high_tickets,
+
+    -- ── Churn risk label ─────────────────────────────────────────────────
+    multiIf(
+        ls.churn_flag = 1,                                              'high',
+        coalesce(u30.usage_cnt, 0) = 0,                                'high',
+        dateDiff('day', la.last_sub_date, today()) > 90,               'medium',
+        coalesce(sat.avg_score, 5.0) < 3.0,                           'medium',
+        'low'
+    )                                                                       AS churn_risk,
+
+    dateDiff('day', la.last_sub_date, today())                              AS days_since_last_activity,
+    now()                                                                   AS _refreshed_at
+
+FROM `default`.`dim_accounts` FINAL a
+JOIN affected af ON a.account_id = af.account_id
+LEFT JOIN latest_sub_1 ls  ON a.account_id = ls.account_id
+LEFT JOIN usage_30d u30    ON a.account_id = u30.account_id
+LEFT JOIN avg_sat sat      ON a.account_id = sat.account_id
+LEFT JOIN high_tix ht      ON a.account_id = ht.account_id
+LEFT JOIN last_activity la ON a.account_id = la.account_id
+          )
+        
+        
+[0m20:46:19.250215 [debug] [Thread-1 (]: Database Error in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)
+  Received ClickHouse exception, code: 62, server response: Code: 62. DB::Exception: Syntax error: failed at position 2281 (u) (line 90, col 47): u
+      JOIN `default`.`fact_subscriptions` FINAL s
+        ON u.subscription_id = s.subscription_id
+      WHERE u.usage_date >= (today() - 30)
+      GROUP BY s.account_id
+  )... Expected one of: SAMPLE, table, table function, subquery or list of joined tables, array join, LEFT ARRAY JOIN, INNER, ARRAY JOIN, GLOBAL, LOCAL, ANY, ALL, ASOF, SEMI, ANTI, ONLY, LEFT, RIGHT, FULL, CROSS, PASTE, JOIN, token, OpeningRoundBracket, PREWHERE, WHERE, GROUP BY, WITH, HAVING, WINDOW, QUALIFY, ORDER BY, LIMIT, OFFSET, FETCH, SETTINGS, UNION, EXCEPT, INTERSECT, alias, AS. (SYNTAX_ERROR) (for url http://clickhouse-saas:8123)
+[0m20:46:19.253581 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec13800a0>]}
+[0m20:46:19.256557 [error] [Thread-1 (]: 2 of 4 ERROR creating sql incremental model `mart_mart`.`mart_customer_health_score`  [[31mERROR[0m in 0.17s]
+[0m20:46:19.259301 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_customer_health_score
+[0m20:46:19.262109 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_feature_usage_summary
+[0m20:46:19.263257 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_customer_health_score' to be skipped because of status 'error'.  Reason: Database Error in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)
+  Received ClickHouse exception, code: 62, server response: Code: 62. DB::Exception: Syntax error: failed at position 2281 (u) (line 90, col 47): u
+      JOIN `default`.`fact_subscriptions` FINAL s
+        ON u.subscription_id = s.subscription_id
+      WHERE u.usage_date >= (today() - 30)
+      GROUP BY s.account_id
+  )... Expected one of: SAMPLE, table, table function, subquery or list of joined tables, array join, LEFT ARRAY JOIN, INNER, ARRAY JOIN, GLOBAL, LOCAL, ANY, ALL, ASOF, SEMI, ANTI, ONLY, LEFT, RIGHT, FULL, CROSS, PASTE, JOIN, token, OpeningRoundBracket, PREWHERE, WHERE, GROUP BY, WITH, HAVING, WINDOW, QUALIFY, ORDER BY, LIMIT, OFFSET, FETCH, SETTINGS, UNION, EXCEPT, INTERSECT, alias, AS. (SYNTAX_ERROR) (for url http://clickhouse-saas:8123).
+[0m20:46:19.265506 [info ] [Thread-1 (]: 3 of 4 START sql incremental model `mart_mart`.`mart_feature_usage_summary` .... [RUN]
+[0m20:46:19.273059 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.saas_analytics.mart_customer_health_score, now model.saas_analytics.mart_feature_usage_summary)
+[0m20:46:19.275700 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_feature_usage_summary
+[0m20:46:19.297044 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_feature_usage_summary"
+[0m20:46:19.324568 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_feature_usage_summary
+[0m20:46:19.341882 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_feature_usage_summary: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_feature_usage_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_feature_usage_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, feature_name))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_feature_usage_summary
+  ==========================
+  Grain : year × month × feature_name
+  Metrics:
+    - total_usage_count     : total feature invocations
+    - total_duration_secs   : total time spent using feature
+    - total_error_count     : total errors encountered
+    - unique_subscriptions  : distinct subscribers using the feature
+    - avg_usage_per_sub     : total_usage / unique_subscriptions
+    - beta_usage_count      : invocations of beta features
+*/
+
+SELECT
+    toYear(usage_date)                                              AS year,
+    toMonth(usage_date)                                             AS month,
+    feature_name,
+    toUInt64(sum(usage_count))                                      AS total_usage_count,
+    toUInt64(sum(usage_duration_secs))                              AS total_duration_secs,
+    toUInt32(sum(error_count))                                      AS total_error_count,
+    toUInt32(countDistinct(subscription_id))                        AS unique_subscriptions,
+    round(
+        sum(usage_count) / nullIf(countDistinct(subscription_id), 0),
+        2
+    )                                                               AS avg_usage_per_sub,
+    toUInt32(countIf(is_beta_feature = 1))                          AS beta_usage_count,
+    now()                                                           AS _refreshed_at
+FROM `default`.`fact_feature_usage` FINAL
+WHERE 1 = 1
+
+GROUP BY year, month, feature_name
+ORDER BY year, month, total_usage_count DESC
+          )
+        
+        ...
+[0m20:46:19.353295 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_feature_usage_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_feature_usage_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, feature_name))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_feature_usage_summary
+  ==========================
+  Grain : year × month × feature_name
+  Metrics:
+    - total_usage_count     : total feature invocations
+    - total_duration_secs   : total time spent using feature
+    - total_error_count     : total errors encountered
+    - unique_subscriptions  : distinct subscribers using the feature
+    - avg_usage_per_sub     : total_usage / unique_subscriptions
+    - beta_usage_count      : invocations of beta features
+*/
+
+SELECT
+    toYear(usage_date)                                              AS year,
+    toMonth(usage_date)                                             AS month,
+    feature_name,
+    toUInt64(sum(usage_count))                                      AS total_usage_count,
+    toUInt64(sum(usage_duration_secs))                              AS total_duration_secs,
+    toUInt32(sum(error_count))                                      AS total_error_count,
+    toUInt32(countDistinct(subscription_id))                        AS unique_subscriptions,
+    round(
+        sum(usage_count) / nullIf(countDistinct(subscription_id), 0),
+        2
+    )                                                               AS avg_usage_per_sub,
+    toUInt32(countIf(is_beta_feature = 1))                          AS beta_usage_count,
+    now()                                                           AS _refreshed_at
+FROM `default`.`fact_feature_usage` FINAL
+WHERE 1 = 1
+
+GROUP BY year, month, feature_name
+ORDER BY year, month, total_usage_count DESC
+          )
+        
+        
+[0m20:46:19.361186 [debug] [Thread-1 (]: Database Error in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_feature_usage' in scope SELECT toYear(usage_date) AS year, toMonth(usage_date) AS month, feature_name, toUInt64(sum(usage_count)) AS total_usage_count, toUInt64(sum(usage_duration_secs)) AS total_duration_secs, toUInt32(sum(error_count)) AS total_error_count, toUInt32(countDistinct(subscription_id)) AS unique_subscriptions, round(sum(usage_count) / nullIf(countDistinct(subscription_id), 0), 2) AS avg_usage_per_sub, toUInt32(countIf(is_beta_feature = 1)) AS beta_usage_count, now() AS _refreshed_at FROM default.fact_feature_usage FINAL WHERE 1 = 1 GROUP BY year, month, feature_name ORDER BY year ASC, month ASC, total_usage_count DESC. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m20:46:19.364324 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec00f7760>]}
+[0m20:46:19.367700 [error] [Thread-1 (]: 3 of 4 ERROR creating sql incremental model `mart_mart`.`mart_feature_usage_summary`  [[31mERROR[0m in 0.09s]
+[0m20:46:19.370551 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_feature_usage_summary
+[0m20:46:19.373236 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_mrr_monthly
+[0m20:46:19.374532 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_feature_usage_summary' to be skipped because of status 'error'.  Reason: Database Error in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_feature_usage' in scope SELECT toYear(usage_date) AS year, toMonth(usage_date) AS month, feature_name, toUInt64(sum(usage_count)) AS total_usage_count, toUInt64(sum(usage_duration_secs)) AS total_duration_secs, toUInt32(sum(error_count)) AS total_error_count, toUInt32(countDistinct(subscription_id)) AS unique_subscriptions, round(sum(usage_count) / nullIf(countDistinct(subscription_id), 0), 2) AS avg_usage_per_sub, toUInt32(countIf(is_beta_feature = 1)) AS beta_usage_count, now() AS _refreshed_at FROM default.fact_feature_usage FINAL WHERE 1 = 1 GROUP BY year, month, feature_name ORDER BY year ASC, month ASC, total_usage_count DESC. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123).
+[0m20:46:19.376670 [info ] [Thread-1 (]: 4 of 4 START sql incremental model `mart_mart`.`mart_mrr_monthly` .............. [RUN]
+[0m20:46:19.380911 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.saas_analytics.mart_feature_usage_summary, now model.saas_analytics.mart_mrr_monthly)
+[0m20:46:19.383140 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_mrr_monthly
+[0m20:46:19.397699 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_mrr_monthly"
+[0m20:46:19.420106 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_mrr_monthly
+[0m20:46:19.429990 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_mrr_monthly: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_mrr_monthly"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_mrr_monthly`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, plan_tier))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_mrr_monthly
+  ================
+  Grain : year × month × plan_tier
+  Logic :
+    - active_accounts  : subscriptions spanning this month
+    - new_accounts     : first-ever subscription started this month
+    - churned_accounts : churn events recorded this month
+    - total_mrr / arr  : sum of active subscription revenue
+    - avg_mrr          : per account average
+
+  Incremental: on each run, only reprocesses months where
+  new subscription data has arrived (based on start_date).
+*/
+
+WITH
+
+active_subs AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        arr_amount,
+        seats,
+        churn_flag,
+        start_date,
+        end_date,
+        subscription_sequence,
+        toYear(start_date)  AS sub_year,
+        toMonth(start_date) AS sub_month
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE
+        -- Only months we need to refresh (incremental filter)
+        
+          1 = 1
+        
+),
+
+-- Unique active months in scope
+months_in_scope AS (
+    SELECT DISTINCT
+        toYear(m)  AS year,
+        toMonth(m) AS month
+    FROM (
+        -- Generate month-start dates for each active subscription month
+        SELECT arrayJoin(
+            arrayMap(
+                d -> toDate(toStartOfMonth(toDate('2024-01-01') + toIntervalDay(d * 30))),
+                range(toUInt64(dateDiff('month', toDate('2024-01-01'), today()) + 1))
+            )
+        ) AS m
+    )
+    WHERE 1 = 1
+    
+),
+
+-- New accounts: subscription_sequence = 1 AND started this month
+new_accts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE subscription_sequence = 1
+    
+),
+
+-- Churned accounts per month
+churned_accts AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        account_id
+    FROM `default`.`fact_churn_events` FINAL
+    
+),
+
+-- Active subscriptions per month: subscription spans that month
+active_per_month AS (
+    SELECT
+        m.year,
+        m.month,
+        s.account_id,
+        s.plan_tier,
+        s.mrr_amount,
+        s.arr_amount,
+        s.seats
+    FROM months_in_scope m
+    JOIN active_subs s
+      ON  s.sub_year  <= m.year
+      AND s.sub_month <= m.month
+      AND (
+          toYear(s.end_date)  > m.year
+          OR (toYear(s.end_date) = m.year AND toMonth(s.end_date) >= m.month)
+      )
+)
+
+SELECT
+    a.year,
+    a.month,
+    a.plan_tier,
+    countDistinct(a.account_id)                                                         AS active_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM new_accts))                                 AS new_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM churned_accts))                             AS churned_accounts,
+    round(sum(a.mrr_amount), 2)                                                         AS total_mrr,
+    round(sum(a.arr_amount), 2)                                                         AS total_arr,
+    round(avg(a.mrr_amount), 2)                                                         AS avg_mrr_per_account,
+    toUInt32(sum(a.seats))                                                              AS total_seats,
+    now()                                                                               AS _refreshed_at
+FROM active_per_month a
+GROUP BY a.year, a.month, a.plan_tier
+ORDER BY a.year, a.month, total_mrr DESC
+          )
+        
+        ...
+[0m20:46:19.477181 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_mrr_monthly"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_mrr_monthly`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, plan_tier))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_mrr_monthly
+  ================
+  Grain : year × month × plan_tier
+  Logic :
+    - active_accounts  : subscriptions spanning this month
+    - new_accounts     : first-ever subscription started this month
+    - churned_accounts : churn events recorded this month
+    - total_mrr / arr  : sum of active subscription revenue
+    - avg_mrr          : per account average
+
+  Incremental: on each run, only reprocesses months where
+  new subscription data has arrived (based on start_date).
+*/
+
+WITH
+
+active_subs AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        arr_amount,
+        seats,
+        churn_flag,
+        start_date,
+        end_date,
+        subscription_sequence,
+        toYear(start_date)  AS sub_year,
+        toMonth(start_date) AS sub_month
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE
+        -- Only months we need to refresh (incremental filter)
+        
+          1 = 1
+        
+),
+
+-- Unique active months in scope
+months_in_scope AS (
+    SELECT DISTINCT
+        toYear(m)  AS year,
+        toMonth(m) AS month
+    FROM (
+        -- Generate month-start dates for each active subscription month
+        SELECT arrayJoin(
+            arrayMap(
+                d -> toDate(toStartOfMonth(toDate('2024-01-01') + toIntervalDay(d * 30))),
+                range(toUInt64(dateDiff('month', toDate('2024-01-01'), today()) + 1))
+            )
+        ) AS m
+    )
+    WHERE 1 = 1
+    
+),
+
+-- New accounts: subscription_sequence = 1 AND started this month
+new_accts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE subscription_sequence = 1
+    
+),
+
+-- Churned accounts per month
+churned_accts AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        account_id
+    FROM `default`.`fact_churn_events` FINAL
+    
+),
+
+-- Active subscriptions per month: subscription spans that month
+active_per_month AS (
+    SELECT
+        m.year,
+        m.month,
+        s.account_id,
+        s.plan_tier,
+        s.mrr_amount,
+        s.arr_amount,
+        s.seats
+    FROM months_in_scope m
+    JOIN active_subs s
+      ON  s.sub_year  <= m.year
+      AND s.sub_month <= m.month
+      AND (
+          toYear(s.end_date)  > m.year
+          OR (toYear(s.end_date) = m.year AND toMonth(s.end_date) >= m.month)
+      )
+)
+
+SELECT
+    a.year,
+    a.month,
+    a.plan_tier,
+    countDistinct(a.account_id)                                                         AS active_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM new_accts))                                 AS new_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM churned_accts))                             AS churned_accounts,
+    round(sum(a.mrr_amount), 2)                                                         AS total_mrr,
+    round(sum(a.arr_amount), 2)                                                         AS total_arr,
+    round(avg(a.mrr_amount), 2)                                                         AS avg_mrr_per_account,
+    toUInt32(sum(a.seats))                                                              AS total_seats,
+    now()                                                                               AS _refreshed_at
+FROM active_per_month a
+GROUP BY a.year, a.month, a.plan_tier
+ORDER BY a.year, a.month, total_mrr DESC
+          )
+        
+        
+[0m20:46:19.481910 [debug] [Thread-1 (]: Database Error in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_subscriptions' in scope  active_subs AS s. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m20:46:19.484440 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '5e06be75-fb00-42ed-9acb-6af13def2128', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec2177190>]}
+[0m20:46:19.487496 [error] [Thread-1 (]: 4 of 4 ERROR creating sql incremental model `mart_mart`.`mart_mrr_monthly` ..... [[31mERROR[0m in 0.10s]
+[0m20:46:19.490046 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_mrr_monthly
+[0m20:46:19.492854 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_mrr_monthly' to be skipped because of status 'error'.  Reason: Database Error in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_subscriptions' in scope  active_subs AS s. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123).
+[0m20:46:19.498583 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m20:46:19.500707 [debug] [MainThread]: Connection 'model.saas_analytics.mart_mrr_monthly' was left open.
+[0m20:46:19.502880 [debug] [MainThread]: On model.saas_analytics.mart_mrr_monthly: Close
+[0m20:46:19.505833 [info ] [MainThread]: 
+[0m20:46:19.509101 [info ] [MainThread]: Finished running 4 incremental models in 0 hours 0 minutes and 2.19 seconds (2.19s).
+[0m20:46:19.513076 [debug] [MainThread]: Command end result
+[0m20:46:19.641529 [debug] [MainThread]: Wrote artifact WritableManifest to /usr/app/dbt/target/manifest.json
+[0m20:46:19.659837 [debug] [MainThread]: Wrote artifact SemanticManifest to /usr/app/dbt/target/semantic_manifest.json
+[0m20:46:19.682112 [debug] [MainThread]: Wrote artifact RunExecutionResult to /usr/app/dbt/target/run_results.json
+[0m20:46:19.684513 [info ] [MainThread]: 
+[0m20:46:19.686854 [info ] [MainThread]: [31mCompleted with 4 errors, 0 partial successes, and 0 warnings:[0m
+[0m20:46:19.689011 [info ] [MainThread]: 
+[0m20:46:19.691479 [error] [MainThread]: [31mFailure in model mart_churn_summary (models/mart/mart_churn_summary.sql)[0m
+[0m20:46:19.694245 [error] [MainThread]:   Database Error in model mart_churn_summary (models/mart/mart_churn_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_churn_events' in scope  churn_events AS c. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m20:46:19.696883 [info ] [MainThread]: 
+[0m20:46:19.699802 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_churn_summary.sql
+[0m20:46:19.703004 [info ] [MainThread]: 
+[0m20:46:19.705928 [error] [MainThread]: [31mFailure in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)[0m
+[0m20:46:19.708921 [error] [MainThread]:   Database Error in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)
+  Received ClickHouse exception, code: 62, server response: Code: 62. DB::Exception: Syntax error: failed at position 2281 (u) (line 90, col 47): u
+      JOIN `default`.`fact_subscriptions` FINAL s
+        ON u.subscription_id = s.subscription_id
+      WHERE u.usage_date >= (today() - 30)
+      GROUP BY s.account_id
+  )... Expected one of: SAMPLE, table, table function, subquery or list of joined tables, array join, LEFT ARRAY JOIN, INNER, ARRAY JOIN, GLOBAL, LOCAL, ANY, ALL, ASOF, SEMI, ANTI, ONLY, LEFT, RIGHT, FULL, CROSS, PASTE, JOIN, token, OpeningRoundBracket, PREWHERE, WHERE, GROUP BY, WITH, HAVING, WINDOW, QUALIFY, ORDER BY, LIMIT, OFFSET, FETCH, SETTINGS, UNION, EXCEPT, INTERSECT, alias, AS. (SYNTAX_ERROR) (for url http://clickhouse-saas:8123)
+[0m20:46:19.711078 [info ] [MainThread]: 
+[0m20:46:19.714676 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_customer_health_score.sql
+[0m20:46:19.717344 [info ] [MainThread]: 
+[0m20:46:19.719712 [error] [MainThread]: [31mFailure in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)[0m
+[0m20:46:19.722454 [error] [MainThread]:   Database Error in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_feature_usage' in scope SELECT toYear(usage_date) AS year, toMonth(usage_date) AS month, feature_name, toUInt64(sum(usage_count)) AS total_usage_count, toUInt64(sum(usage_duration_secs)) AS total_duration_secs, toUInt32(sum(error_count)) AS total_error_count, toUInt32(countDistinct(subscription_id)) AS unique_subscriptions, round(sum(usage_count) / nullIf(countDistinct(subscription_id), 0), 2) AS avg_usage_per_sub, toUInt32(countIf(is_beta_feature = 1)) AS beta_usage_count, now() AS _refreshed_at FROM default.fact_feature_usage FINAL WHERE 1 = 1 GROUP BY year, month, feature_name ORDER BY year ASC, month ASC, total_usage_count DESC. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m20:46:19.725043 [info ] [MainThread]: 
+[0m20:46:19.727807 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_feature_usage_summary.sql
+[0m20:46:19.730706 [info ] [MainThread]: 
+[0m20:46:19.734096 [error] [MainThread]: [31mFailure in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)[0m
+[0m20:46:19.737096 [error] [MainThread]:   Database Error in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_subscriptions' in scope  active_subs AS s. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m20:46:19.739947 [info ] [MainThread]: 
+[0m20:46:19.742575 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_mrr_monthly.sql
+[0m20:46:19.745241 [info ] [MainThread]: 
+[0m20:46:19.748128 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=4 SKIP=0 NO-OP=0 TOTAL=4
+[0m20:46:19.754052 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 4.6399884, "process_in_blocks": "85256", "process_kernel_time": 2.520692, "process_mem_max_rss": "120220", "process_out_blocks": "2464", "process_user_time": 5.458129}
+[0m20:46:19.756509 [debug] [MainThread]: Command `dbt run` failed at 20:46:19.756275 after 4.64 seconds
+[0m20:46:19.758766 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec3ac01c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec2b373a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76eec3987220>]}
+[0m20:46:19.761331 [debug] [MainThread]: Flushing usage events
+[0m20:46:21.364773 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m02:12:00.591969 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773068d5fe50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x77306793bc70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x77306793bc10>]}
+
+
+============================== 02:12:00.611839 | b82f46d8-c8e9-4d62-b744-f59091a21211 ==============================
+[0m02:12:00.611839 [info ] [MainThread]: Running with dbt=1.11.7
+[0m02:12:00.617409 [debug] [MainThread]: running dbt with arguments {'empty': 'False', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'profiles_dir': '/usr/app/dbt', 'send_anonymous_usage_stats': 'True', 'partial_parse': 'True', 'version_check': 'True', 'log_cache_events': 'False', 'write_json': 'True', 'fail_fast': 'False', 'indirect_selection': 'eager', 'log_path': '/usr/app/dbt/logs', 'quiet': 'False', 'no_print': 'None', 'warn_error': 'None', 'use_colors': 'True', 'log_format': 'default', 'introspect': 'True', 'cache_selected_only': 'False', 'use_experimental_parser': 'False', 'printer_width': '80', 'debug': 'False', 'invocation_command': 'dbt run', 'target_path': 'None'}
+[0m02:12:02.530946 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x77306a77a770>]}
+[0m02:12:02.689692 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773067d23a60>]}
+[0m02:12:02.694927 [info ] [MainThread]: Registered adapter: clickhouse=1.10.0
+[0m02:12:02.838154 [debug] [MainThread]: checksum: b80718358155fc17c3559352095564dd56ada1cc1a1c0ef2e62c857e71583775, vars: {}, profile: , target: , version: 1.11.7
+[0m02:12:03.614984 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m02:12:03.617446 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m02:12:03.619947 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m02:12:03.634381 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.saas_analytics.staging
+[0m02:12:03.780329 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7730674dd270>]}
+[0m02:12:04.078969 [debug] [MainThread]: Wrote artifact WritableManifest to /usr/app/dbt/target/manifest.json
+[0m02:12:04.097913 [debug] [MainThread]: Wrote artifact SemanticManifest to /usr/app/dbt/target/semantic_manifest.json
+[0m02:12:04.222012 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7730673e82e0>]}
+[0m02:12:04.225773 [info ] [MainThread]: Found 4 models, 45 data tests, 6 sources, 523 macros
+[0m02:12:04.229350 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7730673e9150>]}
+[0m02:12:04.235794 [info ] [MainThread]: 
+[0m02:12:04.238333 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m02:12:04.240500 [info ] [MainThread]: 
+[0m02:12:04.243813 [debug] [MainThread]: Acquiring new clickhouse connection 'master'
+[0m02:12:04.260971 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list_'
+[0m02:12:04.281620 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m02:12:04.690386 [debug] [ThreadPool]: dbt_clickhouse adapter: On list_: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "connection_name": "list_"} */
+
+    select name from system.databases
+  ...
+[0m02:12:04.697360 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m02:12:04.751915 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_, now list__mart_mart)
+[0m02:12:04.773556 [debug] [ThreadPool]: dbt_clickhouse adapter: On list__mart_mart: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "connection_name": "list__mart_mart"} */
+with mv_sources as (
+      -- Find all MVs and their target tables (database and name of the MV, plus the SELECT SQL)
+      select
+        name as mv_name,
+        database as mv_database,
+        any(as_select) as mv_sql,
+        any(replaceRegexpOne(create_table_query, '.*TO\\s+`?([^`\\s(]+)`?\\.`?([^`\\s(]+)`?.*', '\\1.\\2')) as target_fqn
+      
+      from system.tables
+      
+      where engine = 'MaterializedView'
+        and create_table_query like '%TO %'
+      group by mv_name, mv_database
+    )
+    select
+      t.name as name,
+      t.database as schema,
+      multiIf(
+        t.engine = 'MaterializedView', 'materialized_view',
+        t.engine = 'View', 'view',
+        t.engine = 'Dictionary', 'dictionary',
+        'table'
+      ) as type,
+      db.engine as db_engine,
+      groupArrayIf(
+        map('schema', mv_sources.mv_database, 'name', mv_sources.mv_name, 'sql', mv_sources.mv_sql),
+        mv_sources.mv_name != ''
+      ) as mvs_pointing_to_it,0 as is_on_cluster
+        from system.tables as t
+      
+        join system.databases as db on t.database = db.name
+        left join mv_sources on mv_sources.target_fqn = concat(t.database, '.', t.name)
+      where schema = 'mart_mart'
+      group by name, schema, type, db_engine
+
+  ...
+[0m02:12:05.174103 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.40 seconds
+[0m02:12:05.177580 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x77306741f9a0>]}
+[0m02:12:05.188143 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_churn_summary
+[0m02:12:05.190298 [info ] [Thread-1 (]: 1 of 4 START sql incremental model `mart_mart`.`mart_churn_summary` ............ [RUN]
+[0m02:12:05.192355 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list__mart_mart, now model.saas_analytics.mart_churn_summary)
+[0m02:12:05.194182 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_churn_summary
+[0m02:12:05.213967 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_churn_summary"
+[0m02:12:05.253893 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_churn_summary
+[0m02:12:05.386571 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_churn_summary: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_churn_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_churn_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, reason_code))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_churn_summary
+  ==================
+  Grain : year × month × reason_code
+  Metrics:
+    - churn_count        : number of churn events
+    - total_refund_usd   : total refunds issued
+    - reactivation_count : how many came back after churning
+    - churn_rate_pct     : churned / active_at_start × 100
+*/
+
+WITH
+
+churn_events AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        reason_code,
+        count()                         AS churn_count,
+        sum(refund_amount_usd)          AS total_refund_usd,
+        countIf(is_reactivation = 1)    AS reactivation_count
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month, reason_code
+),
+
+-- Active account count at the start of each target month (denominator)
+active_counts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        countDistinct(account_id) AS active_cnt
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month
+)
+
+SELECT
+    c.year,
+    c.month,
+    c.reason_code,
+    c.churn_count,
+    round(c.total_refund_usd, 2)                                AS total_refund_usd,
+    c.reactivation_count,
+    round(
+        if(a.active_cnt > 0, (c.churn_count / a.active_cnt) * 100, 0),
+        2
+    )                                                           AS churn_rate_pct,
+    now()                                                       AS _refreshed_at
+FROM churn_events c
+LEFT JOIN active_counts a
+  ON c.year = a.year AND c.month = a.month
+ORDER BY c.year, c.month, c.churn_count DESC
+          )
+        
+        ...
+[0m02:12:05.436439 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_churn_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_churn_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, reason_code))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_churn_summary
+  ==================
+  Grain : year × month × reason_code
+  Metrics:
+    - churn_count        : number of churn events
+    - total_refund_usd   : total refunds issued
+    - reactivation_count : how many came back after churning
+    - churn_rate_pct     : churned / active_at_start × 100
+*/
+
+WITH
+
+churn_events AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        reason_code,
+        count()                         AS churn_count,
+        sum(refund_amount_usd)          AS total_refund_usd,
+        countIf(is_reactivation = 1)    AS reactivation_count
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month, reason_code
+),
+
+-- Active account count at the start of each target month (denominator)
+active_counts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        countDistinct(account_id) AS active_cnt
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+    GROUP BY year, month
+)
+
+SELECT
+    c.year,
+    c.month,
+    c.reason_code,
+    c.churn_count,
+    round(c.total_refund_usd, 2)                                AS total_refund_usd,
+    c.reactivation_count,
+    round(
+        if(a.active_cnt > 0, (c.churn_count / a.active_cnt) * 100, 0),
+        2
+    )                                                           AS churn_rate_pct,
+    now()                                                       AS _refreshed_at
+FROM churn_events c
+LEFT JOIN active_counts a
+  ON c.year = a.year AND c.month = a.month
+ORDER BY c.year, c.month, c.churn_count DESC
+          )
+        
+        
+[0m02:12:05.455278 [debug] [Thread-1 (]: Database Error in model mart_churn_summary (models/mart/mart_churn_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_churn_events' in scope  churn_events AS c. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m02:12:05.460003 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773068a20d90>]}
+[0m02:12:05.463227 [error] [Thread-1 (]: 1 of 4 ERROR creating sql incremental model `mart_mart`.`mart_churn_summary` ... [[31mERROR[0m in 0.27s]
+[0m02:12:05.466324 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_churn_summary
+[0m02:12:05.468565 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_customer_health_score
+[0m02:12:05.469609 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_churn_summary' to be skipped because of status 'error'.  Reason: Database Error in model mart_churn_summary (models/mart/mart_churn_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_churn_events' in scope  churn_events AS c. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123).
+[0m02:12:05.471661 [info ] [Thread-1 (]: 2 of 4 START sql incremental model `mart_mart`.`mart_customer_health_score` .... [RUN]
+[0m02:12:05.478495 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.saas_analytics.mart_churn_summary, now model.saas_analytics.mart_customer_health_score)
+[0m02:12:05.481426 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_customer_health_score
+[0m02:12:05.497950 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_customer_health_score"
+[0m02:12:05.554699 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_customer_health_score
+[0m02:12:05.565394 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_customer_health_score: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_customer_health_score"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_customer_health_score`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((account_id))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_customer_health_score
+  ==========================
+  Grain : account_id (latest snapshot per account)
+
+  Health Score Formula (0–100):
+    base  =  50
+    +15   active subscription (churn_flag = 0)
+    +10   paying customer (mrr > 0)
+    +10   avg satisfaction ≥ 4.0
+    +10   used at least 1 feature in last 30 days
+    -15   churned (churn_flag = 1)
+    -10   has open high-priority tickets
+    -10   no activity in last 90 days
+
+  Churn risk label:
+    'high'   → churn_flag = 1 OR no usage in 30d
+    'medium' → no activity 90d OR satisfaction < 3
+    'low'    → everything else
+
+  Incremental: only recalculates accounts that had new events
+  (subscription start, churn, or ticket) in the latest batch window.
+*/
+
+-- Affected accounts: had new activity in the batch period
+WITH affected AS (
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE 1 = 1
+    
+),
+
+-- Latest subscription per account (most recent start_date)
+latest_sub AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        churn_flag,
+        start_date,
+        ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY start_date DESC) AS rn
+    FROM `default`.`fact_subscriptions` FINAL
+),
+latest_sub_1 AS (
+    SELECT * FROM latest_sub WHERE rn = 1
+),
+
+-- Feature usage in last 30 days (linked via subscription → account)
+usage_30d AS (
+    SELECT
+        s.account_id,
+        sum(u.usage_count) AS usage_cnt
+    FROM `default`.`fact_feature_usage` FINAL u
+    JOIN `default`.`fact_subscriptions` FINAL s
+      ON u.subscription_id = s.subscription_id
+    WHERE u.usage_date >= (today() - 30)
+    GROUP BY s.account_id
+),
+
+-- Average satisfaction score per account
+avg_sat AS (
+    SELECT
+        account_id,
+        avg(satisfaction_score) AS avg_score
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE satisfaction_score IS NOT NULL
+    GROUP BY account_id
+),
+
+-- Open high-priority tickets per account
+high_tix AS (
+    SELECT
+        account_id,
+        countIf(priority = 'high' AND closed_at IS NULL) AS open_high_cnt
+    FROM `default`.`fact_support_tickets` FINAL
+    GROUP BY account_id
+),
+
+-- Days since last subscription activity
+last_activity AS (
+    SELECT
+        account_id,
+        max(start_date) AS last_sub_date
+    FROM `default`.`fact_subscriptions` FINAL
+    GROUP BY account_id
+)
+
+SELECT
+    a.account_id,
+    a.account_name,
+    coalesce(ls.plan_tier, a.plan_tier)                                     AS plan_tier,
+    a.country,
+    a.industry,
+
+    -- ── Health score ──────────────────────────────────────────────────────
+    greatest(0, least(100,
+          50
+        + if(ls.churn_flag = 0,    15, 0)
+        + if(ls.mrr_amount > 0,    10, 0)
+        + if(sat.avg_score >= 4.0, 10, 0)
+        + if(u30.usage_cnt > 0,    10, 0)
+        - if(ls.churn_flag = 1,    15, 0)
+        - if(ht.open_high_cnt > 0, 10, 0)
+        - if(dateDiff('day', la.last_sub_date, today()) > 90, 10, 0)
+    ))                                                                      AS health_score,
+
+    round(coalesce(ls.mrr_amount, 0), 2)                                    AS mrr_last_month,
+    round(sat.avg_score, 2)                                                 AS avg_satisfaction,
+    toUInt32(coalesce(u30.usage_cnt, 0))                                    AS total_usage_30d,
+    toUInt32(coalesce(ht.open_high_cnt, 0))                                 AS open_high_tickets,
+
+    -- ── Churn risk label ─────────────────────────────────────────────────
+    multiIf(
+        ls.churn_flag = 1,                                              'high',
+        coalesce(u30.usage_cnt, 0) = 0,                                'high',
+        dateDiff('day', la.last_sub_date, today()) > 90,               'medium',
+        coalesce(sat.avg_score, 5.0) < 3.0,                           'medium',
+        'low'
+    )                                                                       AS churn_risk,
+
+    dateDiff('day', la.last_sub_date, today())                              AS days_since_last_activity,
+    now()                                                                   AS _refreshed_at
+
+FROM `default`.`dim_accounts` FINAL a
+JOIN affected af ON a.account_id = af.account_id
+LEFT JOIN latest_sub_1 ls  ON a.account_id = ls.account_id
+LEFT JOIN usage_30d u30    ON a.account_id = u30.account_id
+LEFT JOIN avg_sat sat      ON a.account_id = sat.account_id
+LEFT JOIN high_tix ht      ON a.account_id = ht.account_id
+LEFT JOIN last_activity la ON a.account_id = la.account_id
+          )
+        
+        ...
+[0m02:12:05.583537 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_customer_health_score"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_customer_health_score`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((account_id))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_customer_health_score
+  ==========================
+  Grain : account_id (latest snapshot per account)
+
+  Health Score Formula (0–100):
+    base  =  50
+    +15   active subscription (churn_flag = 0)
+    +10   paying customer (mrr > 0)
+    +10   avg satisfaction ≥ 4.0
+    +10   used at least 1 feature in last 30 days
+    -15   churned (churn_flag = 1)
+    -10   has open high-priority tickets
+    -10   no activity in last 90 days
+
+  Churn risk label:
+    'high'   → churn_flag = 1 OR no usage in 30d
+    'medium' → no activity 90d OR satisfaction < 3
+    'low'    → everything else
+
+  Incremental: only recalculates accounts that had new events
+  (subscription start, churn, or ticket) in the latest batch window.
+*/
+
+-- Affected accounts: had new activity in the batch period
+WITH affected AS (
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_churn_events` FINAL
+    WHERE 1 = 1
+    
+
+    UNION DISTINCT
+
+    SELECT DISTINCT account_id
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE 1 = 1
+    
+),
+
+-- Latest subscription per account (most recent start_date)
+latest_sub AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        churn_flag,
+        start_date,
+        ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY start_date DESC) AS rn
+    FROM `default`.`fact_subscriptions` FINAL
+),
+latest_sub_1 AS (
+    SELECT * FROM latest_sub WHERE rn = 1
+),
+
+-- Feature usage in last 30 days (linked via subscription → account)
+usage_30d AS (
+    SELECT
+        s.account_id,
+        sum(u.usage_count) AS usage_cnt
+    FROM `default`.`fact_feature_usage` FINAL u
+    JOIN `default`.`fact_subscriptions` FINAL s
+      ON u.subscription_id = s.subscription_id
+    WHERE u.usage_date >= (today() - 30)
+    GROUP BY s.account_id
+),
+
+-- Average satisfaction score per account
+avg_sat AS (
+    SELECT
+        account_id,
+        avg(satisfaction_score) AS avg_score
+    FROM `default`.`fact_support_tickets` FINAL
+    WHERE satisfaction_score IS NOT NULL
+    GROUP BY account_id
+),
+
+-- Open high-priority tickets per account
+high_tix AS (
+    SELECT
+        account_id,
+        countIf(priority = 'high' AND closed_at IS NULL) AS open_high_cnt
+    FROM `default`.`fact_support_tickets` FINAL
+    GROUP BY account_id
+),
+
+-- Days since last subscription activity
+last_activity AS (
+    SELECT
+        account_id,
+        max(start_date) AS last_sub_date
+    FROM `default`.`fact_subscriptions` FINAL
+    GROUP BY account_id
+)
+
+SELECT
+    a.account_id,
+    a.account_name,
+    coalesce(ls.plan_tier, a.plan_tier)                                     AS plan_tier,
+    a.country,
+    a.industry,
+
+    -- ── Health score ──────────────────────────────────────────────────────
+    greatest(0, least(100,
+          50
+        + if(ls.churn_flag = 0,    15, 0)
+        + if(ls.mrr_amount > 0,    10, 0)
+        + if(sat.avg_score >= 4.0, 10, 0)
+        + if(u30.usage_cnt > 0,    10, 0)
+        - if(ls.churn_flag = 1,    15, 0)
+        - if(ht.open_high_cnt > 0, 10, 0)
+        - if(dateDiff('day', la.last_sub_date, today()) > 90, 10, 0)
+    ))                                                                      AS health_score,
+
+    round(coalesce(ls.mrr_amount, 0), 2)                                    AS mrr_last_month,
+    round(sat.avg_score, 2)                                                 AS avg_satisfaction,
+    toUInt32(coalesce(u30.usage_cnt, 0))                                    AS total_usage_30d,
+    toUInt32(coalesce(ht.open_high_cnt, 0))                                 AS open_high_tickets,
+
+    -- ── Churn risk label ─────────────────────────────────────────────────
+    multiIf(
+        ls.churn_flag = 1,                                              'high',
+        coalesce(u30.usage_cnt, 0) = 0,                                'high',
+        dateDiff('day', la.last_sub_date, today()) > 90,               'medium',
+        coalesce(sat.avg_score, 5.0) < 3.0,                           'medium',
+        'low'
+    )                                                                       AS churn_risk,
+
+    dateDiff('day', la.last_sub_date, today())                              AS days_since_last_activity,
+    now()                                                                   AS _refreshed_at
+
+FROM `default`.`dim_accounts` FINAL a
+JOIN affected af ON a.account_id = af.account_id
+LEFT JOIN latest_sub_1 ls  ON a.account_id = ls.account_id
+LEFT JOIN usage_30d u30    ON a.account_id = u30.account_id
+LEFT JOIN avg_sat sat      ON a.account_id = sat.account_id
+LEFT JOIN high_tix ht      ON a.account_id = ht.account_id
+LEFT JOIN last_activity la ON a.account_id = la.account_id
+          )
+        
+        
+[0m02:12:05.588839 [debug] [Thread-1 (]: Database Error in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)
+  Received ClickHouse exception, code: 62, server response: Code: 62. DB::Exception: Syntax error: failed at position 2281 (u) (line 90, col 47): u
+      JOIN `default`.`fact_subscriptions` FINAL s
+        ON u.subscription_id = s.subscription_id
+      WHERE u.usage_date >= (today() - 30)
+      GROUP BY s.account_id
+  )... Expected one of: SAMPLE, table, table function, subquery or list of joined tables, array join, LEFT ARRAY JOIN, INNER, ARRAY JOIN, GLOBAL, LOCAL, ANY, ALL, ASOF, SEMI, ANTI, ONLY, LEFT, RIGHT, FULL, CROSS, PASTE, JOIN, token, OpeningRoundBracket, PREWHERE, WHERE, GROUP BY, WITH, HAVING, WINDOW, QUALIFY, ORDER BY, LIMIT, OFFSET, FETCH, SETTINGS, UNION, EXCEPT, INTERSECT, alias, AS. (SYNTAX_ERROR) (for url http://clickhouse-saas:8123)
+[0m02:12:05.591548 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7730663e4850>]}
+[0m02:12:05.594325 [error] [Thread-1 (]: 2 of 4 ERROR creating sql incremental model `mart_mart`.`mart_customer_health_score`  [[31mERROR[0m in 0.11s]
+[0m02:12:05.597620 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_customer_health_score
+[0m02:12:05.600015 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_feature_usage_summary
+[0m02:12:05.601372 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_customer_health_score' to be skipped because of status 'error'.  Reason: Database Error in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)
+  Received ClickHouse exception, code: 62, server response: Code: 62. DB::Exception: Syntax error: failed at position 2281 (u) (line 90, col 47): u
+      JOIN `default`.`fact_subscriptions` FINAL s
+        ON u.subscription_id = s.subscription_id
+      WHERE u.usage_date >= (today() - 30)
+      GROUP BY s.account_id
+  )... Expected one of: SAMPLE, table, table function, subquery or list of joined tables, array join, LEFT ARRAY JOIN, INNER, ARRAY JOIN, GLOBAL, LOCAL, ANY, ALL, ASOF, SEMI, ANTI, ONLY, LEFT, RIGHT, FULL, CROSS, PASTE, JOIN, token, OpeningRoundBracket, PREWHERE, WHERE, GROUP BY, WITH, HAVING, WINDOW, QUALIFY, ORDER BY, LIMIT, OFFSET, FETCH, SETTINGS, UNION, EXCEPT, INTERSECT, alias, AS. (SYNTAX_ERROR) (for url http://clickhouse-saas:8123).
+[0m02:12:05.603771 [info ] [Thread-1 (]: 3 of 4 START sql incremental model `mart_mart`.`mart_feature_usage_summary` .... [RUN]
+[0m02:12:05.608669 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.saas_analytics.mart_customer_health_score, now model.saas_analytics.mart_feature_usage_summary)
+[0m02:12:05.611284 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_feature_usage_summary
+[0m02:12:05.620490 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_feature_usage_summary"
+[0m02:12:05.668083 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_feature_usage_summary
+[0m02:12:05.677146 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_feature_usage_summary: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_feature_usage_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_feature_usage_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, feature_name))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_feature_usage_summary
+  ==========================
+  Grain : year × month × feature_name
+  Metrics:
+    - total_usage_count     : total feature invocations
+    - total_duration_secs   : total time spent using feature
+    - total_error_count     : total errors encountered
+    - unique_subscriptions  : distinct subscribers using the feature
+    - avg_usage_per_sub     : total_usage / unique_subscriptions
+    - beta_usage_count      : invocations of beta features
+*/
+
+SELECT
+    toYear(usage_date)                                              AS year,
+    toMonth(usage_date)                                             AS month,
+    feature_name,
+    toUInt64(sum(usage_count))                                      AS total_usage_count,
+    toUInt64(sum(usage_duration_secs))                              AS total_duration_secs,
+    toUInt32(sum(error_count))                                      AS total_error_count,
+    toUInt32(countDistinct(subscription_id))                        AS unique_subscriptions,
+    round(
+        sum(usage_count) / nullIf(countDistinct(subscription_id), 0),
+        2
+    )                                                               AS avg_usage_per_sub,
+    toUInt32(countIf(is_beta_feature = 1))                          AS beta_usage_count,
+    now()                                                           AS _refreshed_at
+FROM `default`.`fact_feature_usage` FINAL
+WHERE 1 = 1
+
+GROUP BY year, month, feature_name
+ORDER BY year, month, total_usage_count DESC
+          )
+        
+        ...
+[0m02:12:05.687555 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_feature_usage_summary"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_feature_usage_summary`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, feature_name))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_feature_usage_summary
+  ==========================
+  Grain : year × month × feature_name
+  Metrics:
+    - total_usage_count     : total feature invocations
+    - total_duration_secs   : total time spent using feature
+    - total_error_count     : total errors encountered
+    - unique_subscriptions  : distinct subscribers using the feature
+    - avg_usage_per_sub     : total_usage / unique_subscriptions
+    - beta_usage_count      : invocations of beta features
+*/
+
+SELECT
+    toYear(usage_date)                                              AS year,
+    toMonth(usage_date)                                             AS month,
+    feature_name,
+    toUInt64(sum(usage_count))                                      AS total_usage_count,
+    toUInt64(sum(usage_duration_secs))                              AS total_duration_secs,
+    toUInt32(sum(error_count))                                      AS total_error_count,
+    toUInt32(countDistinct(subscription_id))                        AS unique_subscriptions,
+    round(
+        sum(usage_count) / nullIf(countDistinct(subscription_id), 0),
+        2
+    )                                                               AS avg_usage_per_sub,
+    toUInt32(countIf(is_beta_feature = 1))                          AS beta_usage_count,
+    now()                                                           AS _refreshed_at
+FROM `default`.`fact_feature_usage` FINAL
+WHERE 1 = 1
+
+GROUP BY year, month, feature_name
+ORDER BY year, month, total_usage_count DESC
+          )
+        
+        
+[0m02:12:05.691607 [debug] [Thread-1 (]: Database Error in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_feature_usage' in scope SELECT toYear(usage_date) AS year, toMonth(usage_date) AS month, feature_name, toUInt64(sum(usage_count)) AS total_usage_count, toUInt64(sum(usage_duration_secs)) AS total_duration_secs, toUInt32(sum(error_count)) AS total_error_count, toUInt32(countDistinct(subscription_id)) AS unique_subscriptions, round(sum(usage_count) / nullIf(countDistinct(subscription_id), 0), 2) AS avg_usage_per_sub, toUInt32(countIf(is_beta_feature = 1)) AS beta_usage_count, now() AS _refreshed_at FROM default.fact_feature_usage FINAL WHERE 1 = 1 GROUP BY year, month, feature_name ORDER BY year ASC, month ASC, total_usage_count DESC. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m02:12:05.694185 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773068a20d90>]}
+[0m02:12:05.696479 [error] [Thread-1 (]: 3 of 4 ERROR creating sql incremental model `mart_mart`.`mart_feature_usage_summary`  [[31mERROR[0m in 0.09s]
+[0m02:12:05.698642 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_feature_usage_summary
+[0m02:12:05.700495 [debug] [Thread-1 (]: Began running node model.saas_analytics.mart_mrr_monthly
+[0m02:12:05.701410 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_feature_usage_summary' to be skipped because of status 'error'.  Reason: Database Error in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_feature_usage' in scope SELECT toYear(usage_date) AS year, toMonth(usage_date) AS month, feature_name, toUInt64(sum(usage_count)) AS total_usage_count, toUInt64(sum(usage_duration_secs)) AS total_duration_secs, toUInt32(sum(error_count)) AS total_error_count, toUInt32(countDistinct(subscription_id)) AS unique_subscriptions, round(sum(usage_count) / nullIf(countDistinct(subscription_id), 0), 2) AS avg_usage_per_sub, toUInt32(countIf(is_beta_feature = 1)) AS beta_usage_count, now() AS _refreshed_at FROM default.fact_feature_usage FINAL WHERE 1 = 1 GROUP BY year, month, feature_name ORDER BY year ASC, month ASC, total_usage_count DESC. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123).
+[0m02:12:05.703047 [info ] [Thread-1 (]: 4 of 4 START sql incremental model `mart_mart`.`mart_mrr_monthly` .............. [RUN]
+[0m02:12:05.706833 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.saas_analytics.mart_feature_usage_summary, now model.saas_analytics.mart_mrr_monthly)
+[0m02:12:05.708953 [debug] [Thread-1 (]: Began compiling node model.saas_analytics.mart_mrr_monthly
+[0m02:12:05.722151 [debug] [Thread-1 (]: Writing injected SQL for node "model.saas_analytics.mart_mrr_monthly"
+[0m02:12:05.776181 [debug] [Thread-1 (]: Began executing node model.saas_analytics.mart_mrr_monthly
+[0m02:12:05.787850 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.saas_analytics.mart_mrr_monthly: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_mrr_monthly"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_mrr_monthly`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, plan_tier))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_mrr_monthly
+  ================
+  Grain : year × month × plan_tier
+  Logic :
+    - active_accounts  : subscriptions spanning this month
+    - new_accounts     : first-ever subscription started this month
+    - churned_accounts : churn events recorded this month
+    - total_mrr / arr  : sum of active subscription revenue
+    - avg_mrr          : per account average
+
+  Incremental: on each run, only reprocesses months where
+  new subscription data has arrived (based on start_date).
+*/
+
+WITH
+
+active_subs AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        arr_amount,
+        seats,
+        churn_flag,
+        start_date,
+        end_date,
+        subscription_sequence,
+        toYear(start_date)  AS sub_year,
+        toMonth(start_date) AS sub_month
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE
+        -- Only months we need to refresh (incremental filter)
+        
+          1 = 1
+        
+),
+
+-- Unique active months in scope
+months_in_scope AS (
+    SELECT DISTINCT
+        toYear(m)  AS year,
+        toMonth(m) AS month
+    FROM (
+        -- Generate month-start dates for each active subscription month
+        SELECT arrayJoin(
+            arrayMap(
+                d -> toDate(toStartOfMonth(toDate('2024-01-01') + toIntervalDay(d * 30))),
+                range(toUInt64(dateDiff('month', toDate('2024-01-01'), today()) + 1))
+            )
+        ) AS m
+    )
+    WHERE 1 = 1
+    
+),
+
+-- New accounts: subscription_sequence = 1 AND started this month
+new_accts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE subscription_sequence = 1
+    
+),
+
+-- Churned accounts per month
+churned_accts AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        account_id
+    FROM `default`.`fact_churn_events` FINAL
+    
+),
+
+-- Active subscriptions per month: subscription spans that month
+active_per_month AS (
+    SELECT
+        m.year,
+        m.month,
+        s.account_id,
+        s.plan_tier,
+        s.mrr_amount,
+        s.arr_amount,
+        s.seats
+    FROM months_in_scope m
+    JOIN active_subs s
+      ON  s.sub_year  <= m.year
+      AND s.sub_month <= m.month
+      AND (
+          toYear(s.end_date)  > m.year
+          OR (toYear(s.end_date) = m.year AND toMonth(s.end_date) >= m.month)
+      )
+)
+
+SELECT
+    a.year,
+    a.month,
+    a.plan_tier,
+    countDistinct(a.account_id)                                                         AS active_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM new_accts))                                 AS new_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM churned_accts))                             AS churned_accounts,
+    round(sum(a.mrr_amount), 2)                                                         AS total_mrr,
+    round(sum(a.arr_amount), 2)                                                         AS total_arr,
+    round(avg(a.mrr_amount), 2)                                                         AS avg_mrr_per_account,
+    toUInt32(sum(a.seats))                                                              AS total_seats,
+    now()                                                                               AS _refreshed_at
+FROM active_per_month a
+GROUP BY a.year, a.month, a.plan_tier
+ORDER BY a.year, a.month, total_mrr DESC
+          )
+        
+        ...
+[0m02:12:05.812417 [debug] [Thread-1 (]: dbt_clickhouse adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.11.7", "profile_name": "saas_analytics", "target_name": "dev", "node_id": "model.saas_analytics.mart_mrr_monthly"} */
+
+            
+
+    
+        create table `mart_mart`.`mart_mrr_monthly`
+        
+  
+        
+  engine = ReplacingMergeTree()
+        order by ((year, month, plan_tier))
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            
+
+/*
+  mart_mrr_monthly
+  ================
+  Grain : year × month × plan_tier
+  Logic :
+    - active_accounts  : subscriptions spanning this month
+    - new_accounts     : first-ever subscription started this month
+    - churned_accounts : churn events recorded this month
+    - total_mrr / arr  : sum of active subscription revenue
+    - avg_mrr          : per account average
+
+  Incremental: on each run, only reprocesses months where
+  new subscription data has arrived (based on start_date).
+*/
+
+WITH
+
+active_subs AS (
+    SELECT
+        account_id,
+        plan_tier,
+        mrr_amount,
+        arr_amount,
+        seats,
+        churn_flag,
+        start_date,
+        end_date,
+        subscription_sequence,
+        toYear(start_date)  AS sub_year,
+        toMonth(start_date) AS sub_month
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE
+        -- Only months we need to refresh (incremental filter)
+        
+          1 = 1
+        
+),
+
+-- Unique active months in scope
+months_in_scope AS (
+    SELECT DISTINCT
+        toYear(m)  AS year,
+        toMonth(m) AS month
+    FROM (
+        -- Generate month-start dates for each active subscription month
+        SELECT arrayJoin(
+            arrayMap(
+                d -> toDate(toStartOfMonth(toDate('2024-01-01') + toIntervalDay(d * 30))),
+                range(toUInt64(dateDiff('month', toDate('2024-01-01'), today()) + 1))
+            )
+        ) AS m
+    )
+    WHERE 1 = 1
+    
+),
+
+-- New accounts: subscription_sequence = 1 AND started this month
+new_accts AS (
+    SELECT
+        toYear(start_date)  AS year,
+        toMonth(start_date) AS month,
+        account_id
+    FROM `default`.`fact_subscriptions` FINAL
+    WHERE subscription_sequence = 1
+    
+),
+
+-- Churned accounts per month
+churned_accts AS (
+    SELECT
+        toYear(churn_date)  AS year,
+        toMonth(churn_date) AS month,
+        account_id
+    FROM `default`.`fact_churn_events` FINAL
+    
+),
+
+-- Active subscriptions per month: subscription spans that month
+active_per_month AS (
+    SELECT
+        m.year,
+        m.month,
+        s.account_id,
+        s.plan_tier,
+        s.mrr_amount,
+        s.arr_amount,
+        s.seats
+    FROM months_in_scope m
+    JOIN active_subs s
+      ON  s.sub_year  <= m.year
+      AND s.sub_month <= m.month
+      AND (
+          toYear(s.end_date)  > m.year
+          OR (toYear(s.end_date) = m.year AND toMonth(s.end_date) >= m.month)
+      )
+)
+
+SELECT
+    a.year,
+    a.month,
+    a.plan_tier,
+    countDistinct(a.account_id)                                                         AS active_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM new_accts))                                 AS new_accounts,
+    countDistinctIf(a.account_id, (a.year, a.month, a.account_id) IN (
+        SELECT year, month, account_id FROM churned_accts))                             AS churned_accounts,
+    round(sum(a.mrr_amount), 2)                                                         AS total_mrr,
+    round(sum(a.arr_amount), 2)                                                         AS total_arr,
+    round(avg(a.mrr_amount), 2)                                                         AS avg_mrr_per_account,
+    toUInt32(sum(a.seats))                                                              AS total_seats,
+    now()                                                                               AS _refreshed_at
+FROM active_per_month a
+GROUP BY a.year, a.month, a.plan_tier
+ORDER BY a.year, a.month, total_mrr DESC
+          )
+        
+        
+[0m02:12:05.816118 [debug] [Thread-1 (]: Database Error in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_subscriptions' in scope  active_subs AS s. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m02:12:05.818394 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b82f46d8-c8e9-4d62-b744-f59091a21211', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7730662de7a0>]}
+[0m02:12:05.820631 [error] [Thread-1 (]: 4 of 4 ERROR creating sql incremental model `mart_mart`.`mart_mrr_monthly` ..... [[31mERROR[0m in 0.11s]
+[0m02:12:05.823612 [debug] [Thread-1 (]: Finished running node model.saas_analytics.mart_mrr_monthly
+[0m02:12:05.826696 [debug] [Thread-4 (]: Marking all children of 'model.saas_analytics.mart_mrr_monthly' to be skipped because of status 'error'.  Reason: Database Error in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_subscriptions' in scope  active_subs AS s. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123).
+[0m02:12:05.830385 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m02:12:05.832283 [debug] [MainThread]: Connection 'model.saas_analytics.mart_mrr_monthly' was left open.
+[0m02:12:05.834045 [debug] [MainThread]: On model.saas_analytics.mart_mrr_monthly: Close
+[0m02:12:05.835822 [info ] [MainThread]: 
+[0m02:12:05.838103 [info ] [MainThread]: Finished running 4 incremental models in 0 hours 0 minutes and 1.59 seconds (1.59s).
+[0m02:12:05.841350 [debug] [MainThread]: Command end result
+[0m02:12:05.953202 [debug] [MainThread]: Wrote artifact WritableManifest to /usr/app/dbt/target/manifest.json
+[0m02:12:05.983021 [debug] [MainThread]: Wrote artifact SemanticManifest to /usr/app/dbt/target/semantic_manifest.json
+[0m02:12:06.032851 [debug] [MainThread]: Wrote artifact RunExecutionResult to /usr/app/dbt/target/run_results.json
+[0m02:12:06.040051 [info ] [MainThread]: 
+[0m02:12:06.045401 [info ] [MainThread]: [31mCompleted with 4 errors, 0 partial successes, and 0 warnings:[0m
+[0m02:12:06.053259 [info ] [MainThread]: 
+[0m02:12:06.060433 [error] [MainThread]: [31mFailure in model mart_churn_summary (models/mart/mart_churn_summary.sql)[0m
+[0m02:12:06.067519 [error] [MainThread]:   Database Error in model mart_churn_summary (models/mart/mart_churn_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_churn_events' in scope  churn_events AS c. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m02:12:06.076561 [info ] [MainThread]: 
+[0m02:12:06.083560 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_churn_summary.sql
+[0m02:12:06.095558 [info ] [MainThread]: 
+[0m02:12:06.101801 [error] [MainThread]: [31mFailure in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)[0m
+[0m02:12:06.109651 [error] [MainThread]:   Database Error in model mart_customer_health_score (models/mart/mart_customer_health_score.sql)
+  Received ClickHouse exception, code: 62, server response: Code: 62. DB::Exception: Syntax error: failed at position 2281 (u) (line 90, col 47): u
+      JOIN `default`.`fact_subscriptions` FINAL s
+        ON u.subscription_id = s.subscription_id
+      WHERE u.usage_date >= (today() - 30)
+      GROUP BY s.account_id
+  )... Expected one of: SAMPLE, table, table function, subquery or list of joined tables, array join, LEFT ARRAY JOIN, INNER, ARRAY JOIN, GLOBAL, LOCAL, ANY, ALL, ASOF, SEMI, ANTI, ONLY, LEFT, RIGHT, FULL, CROSS, PASTE, JOIN, token, OpeningRoundBracket, PREWHERE, WHERE, GROUP BY, WITH, HAVING, WINDOW, QUALIFY, ORDER BY, LIMIT, OFFSET, FETCH, SETTINGS, UNION, EXCEPT, INTERSECT, alias, AS. (SYNTAX_ERROR) (for url http://clickhouse-saas:8123)
+[0m02:12:06.115586 [info ] [MainThread]: 
+[0m02:12:06.121700 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_customer_health_score.sql
+[0m02:12:06.126639 [info ] [MainThread]: 
+[0m02:12:06.134401 [error] [MainThread]: [31mFailure in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)[0m
+[0m02:12:06.140187 [error] [MainThread]:   Database Error in model mart_feature_usage_summary (models/mart/mart_feature_usage_summary.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_feature_usage' in scope SELECT toYear(usage_date) AS year, toMonth(usage_date) AS month, feature_name, toUInt64(sum(usage_count)) AS total_usage_count, toUInt64(sum(usage_duration_secs)) AS total_duration_secs, toUInt32(sum(error_count)) AS total_error_count, toUInt32(countDistinct(subscription_id)) AS unique_subscriptions, round(sum(usage_count) / nullIf(countDistinct(subscription_id), 0), 2) AS avg_usage_per_sub, toUInt32(countIf(is_beta_feature = 1)) AS beta_usage_count, now() AS _refreshed_at FROM default.fact_feature_usage FINAL WHERE 1 = 1 GROUP BY year, month, feature_name ORDER BY year ASC, month ASC, total_usage_count DESC. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m02:12:06.147182 [info ] [MainThread]: 
+[0m02:12:06.153354 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_feature_usage_summary.sql
+[0m02:12:06.159466 [info ] [MainThread]: 
+[0m02:12:06.167157 [error] [MainThread]: [31mFailure in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)[0m
+[0m02:12:06.174461 [error] [MainThread]:   Database Error in model mart_mrr_monthly (models/mart/mart_mrr_monthly.sql)
+  Received ClickHouse exception, code: 60, server response: Code: 60. DB::Exception: Unknown table expression identifier 'default.fact_subscriptions' in scope  active_subs AS s. (UNKNOWN_TABLE) (for url http://clickhouse-saas:8123)
+[0m02:12:06.180328 [info ] [MainThread]: 
+[0m02:12:06.184532 [info ] [MainThread]:   compiled code at target/compiled/saas_analytics/models/mart/mart_mrr_monthly.sql
+[0m02:12:06.187281 [info ] [MainThread]: 
+[0m02:12:06.190254 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=4 SKIP=0 NO-OP=0 TOTAL=4
+[0m02:12:06.195085 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 4.5807004, "process_in_blocks": "109280", "process_kernel_time": 0.97523, "process_mem_max_rss": "120732", "process_out_blocks": "0", "process_user_time": 4.396597}
+[0m02:12:06.197888 [debug] [MainThread]: Command `dbt run` failed at 02:12:06.197331 after 4.58 seconds
+[0m02:12:06.200221 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773068d5fe50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773067395240>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x773067d23a60>]}
+[0m02:12:06.202283 [debug] [MainThread]: Flushing usage events
+[0m02:12:07.347836 [debug] [MainThread]: An error was encountered while trying to flush usage events

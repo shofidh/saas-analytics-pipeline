@@ -1,5 +1,5 @@
 -- =============================================================================
--- ddl_warehouse.sql
+-- ddl_production.sql
 -- ClickHouse DDL — SaaS Analytics Platform
 -- Layers: staging → warehouse (dims + facts) → mart
 -- =============================================================================
@@ -8,7 +8,7 @@
 -- 0. DATABASES
 -- ─────────────────────────────────────────────────────────────────────────────
 CREATE DATABASE IF NOT EXISTS staging;
-CREATE DATABASE IF NOT EXISTS warehouse;
+CREATE DATABASE IF NOT EXISTS production;
 CREATE DATABASE IF NOT EXISTS mart;
 
 
@@ -128,7 +128,7 @@ ORDER BY (account_id, submitted_at, ticket_id);
 -- Engine: ReplacingMergeTree(_updated_at) — idempotent upserts
 -- =============================================================================
 
-CREATE TABLE IF NOT EXISTS warehouse.dim_accounts
+CREATE TABLE IF NOT EXISTS production.dim_accounts
 (
     account_id          String,
     account_name        String,
@@ -147,7 +147,7 @@ ENGINE = ReplacingMergeTree(_updated_at)
 PARTITION BY toYear(signup_date)
 ORDER BY account_id;
 
-CREATE TABLE IF NOT EXISTS warehouse.dim_plans
+CREATE TABLE IF NOT EXISTS production.dim_plans
 (
     plan_tier           String,
     price_per_seat_usd  Float64,
@@ -159,14 +159,14 @@ ENGINE = ReplacingMergeTree(_updated_at)
 ORDER BY plan_tier;
 
 -- Seed plan data (idempotent — ReplacingMergeTree deduplicates on merge)
-INSERT INTO warehouse.dim_plans VALUES
+INSERT INTO production.dim_plans VALUES
     ('Free',       0.00,  'none',    'Free tier, no billing',               1000),
     ('Basic',      10.00, 'monthly', 'Basic plan, per seat per month',      1000),
     ('Pro',        25.00, 'monthly', 'Pro plan, per seat per month',        1000),
     ('Enterprise', 60.00, 'mixed',   'Enterprise, negotiated pricing',      1000);
 
 -- dim_date: date spine 2024-01-01 → 2026-12-31
-CREATE TABLE IF NOT EXISTS warehouse.dim_date
+CREATE TABLE IF NOT EXISTS production.dim_date
 (
     date_key        Date,
     year            UInt16,
@@ -186,7 +186,7 @@ ORDER BY date_key;
 
 -- Populate date spine using numbers() — compute date_key inline, no forward ref
 -- Note: %B and %A are not supported in ClickHouse 26.x; using CASE instead
-INSERT INTO warehouse.dim_date
+INSERT INTO production.dim_date
 SELECT
     d                                                       AS date_key,
     toYear(d)                                               AS year,
@@ -224,7 +224,7 @@ WHERE d <= toDate('2026-12-31');
 -- Engine: ReplacingMergeTree(_updated_at) for late-arriving data handling
 -- =============================================================================
 
-CREATE TABLE IF NOT EXISTS warehouse.fact_subscriptions
+CREATE TABLE IF NOT EXISTS production.fact_subscriptions
 (
     subscription_id         String,
     account_id              String,
@@ -252,7 +252,7 @@ ENGINE = ReplacingMergeTree(_updated_at)
 PARTITION BY toYYYYMM(start_date)
 ORDER BY (account_id, start_date, subscription_id);
 
-CREATE TABLE IF NOT EXISTS warehouse.fact_churn_events
+CREATE TABLE IF NOT EXISTS production.fact_churn_events
 (
     churn_event_id              String,
     account_id                  String,
@@ -270,7 +270,7 @@ ENGINE = ReplacingMergeTree(_updated_at)
 PARTITION BY toYYYYMM(churn_date)
 ORDER BY (account_id, churn_date, churn_event_id);
 
-CREATE TABLE IF NOT EXISTS warehouse.fact_feature_usage
+CREATE TABLE IF NOT EXISTS production.fact_feature_usage
 (
     usage_id                String,
     subscription_id         String,
@@ -287,7 +287,7 @@ ENGINE = ReplacingMergeTree(_updated_at)
 PARTITION BY toYYYYMM(usage_date)
 ORDER BY (subscription_id, usage_date, usage_id);
 
-CREATE TABLE IF NOT EXISTS warehouse.fact_support_tickets
+CREATE TABLE IF NOT EXISTS production.fact_support_tickets
 (
     ticket_id                       String,
     account_id                      String,

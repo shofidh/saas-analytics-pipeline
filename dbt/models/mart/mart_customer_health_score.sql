@@ -34,31 +34,40 @@
   (subscription start, churn, or ticket) in the latest batch window.
 */
 
--- Affected accounts: had new activity in the batch period
+-- Affected accounts: had new activity in the batch period (or all accounts on first/empty run)
 WITH affected AS (
     SELECT DISTINCT account_id
-    FROM {{ source('warehouse', 'fact_subscriptions') }} FINAL
+    FROM {{ source('production', 'fact_subscriptions') }} FINAL
     WHERE 1 = 1
     {% if is_incremental() %}
-      AND toDate(start_date) >= (today() - 1)
+      AND toDate(start_date) >= (
+        SELECT if(count(*) = 0, toDate('2024-01-01'), today() - 1)
+        FROM {{ this }}
+      )
     {% endif %}
 
     UNION DISTINCT
 
     SELECT DISTINCT account_id
-    FROM {{ source('warehouse', 'fact_churn_events') }} FINAL
+    FROM {{ source('production', 'fact_churn_events') }} FINAL
     WHERE 1 = 1
     {% if is_incremental() %}
-      AND toDate(churn_date) >= (today() - 1)
+      AND toDate(churn_date) >= (
+        SELECT if(count(*) = 0, toDate('2024-01-01'), today() - 1)
+        FROM {{ this }}
+      )
     {% endif %}
 
     UNION DISTINCT
 
     SELECT DISTINCT account_id
-    FROM {{ source('warehouse', 'fact_support_tickets') }} FINAL
+    FROM {{ source('production', 'fact_support_tickets') }} FINAL
     WHERE 1 = 1
     {% if is_incremental() %}
-      AND toDate(submitted_at) >= (today() - 1)
+      AND toDate(submitted_at) >= (
+        SELECT if(count(*) = 0, toDate('2024-01-01'), today() - 1)
+        FROM {{ this }}
+      )
     {% endif %}
 ),
 
@@ -71,7 +80,7 @@ latest_sub AS (
         churn_flag,
         start_date,
         ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY start_date DESC) AS rn
-    FROM {{ source('warehouse', 'fact_subscriptions') }} FINAL
+    FROM {{ source('production', 'fact_subscriptions') }} FINAL
 ),
 latest_sub_1 AS (
     SELECT * FROM latest_sub WHERE rn = 1
@@ -82,9 +91,14 @@ usage_30d AS (
     SELECT
         s.account_id,
         sum(u.usage_count) AS usage_cnt
-    FROM {{ source('warehouse', 'fact_feature_usage') }} FINAL u
-    JOIN {{ source('warehouse', 'fact_subscriptions') }} FINAL s
-      ON u.subscription_id = s.subscription_id
+    FROM (
+        SELECT subscription_id, usage_count, usage_date
+        FROM {{ source('production', 'fact_feature_usage') }} FINAL
+    ) AS u
+    JOIN (
+        SELECT account_id, subscription_id
+        FROM {{ source('production', 'fact_subscriptions') }} FINAL
+    ) AS s ON u.subscription_id = s.subscription_id
     WHERE u.usage_date >= (today() - 30)
     GROUP BY s.account_id
 ),
@@ -94,7 +108,7 @@ avg_sat AS (
     SELECT
         account_id,
         avg(satisfaction_score) AS avg_score
-    FROM {{ source('warehouse', 'fact_support_tickets') }} FINAL
+    FROM {{ source('production', 'fact_support_tickets') }} FINAL
     WHERE satisfaction_score IS NOT NULL
     GROUP BY account_id
 ),
@@ -104,7 +118,7 @@ high_tix AS (
     SELECT
         account_id,
         countIf(priority = 'high' AND closed_at IS NULL) AS open_high_cnt
-    FROM {{ source('warehouse', 'fact_support_tickets') }} FINAL
+    FROM {{ source('production', 'fact_support_tickets') }} FINAL
     GROUP BY account_id
 ),
 
@@ -113,13 +127,13 @@ last_activity AS (
     SELECT
         account_id,
         max(start_date) AS last_sub_date
-    FROM {{ source('warehouse', 'fact_subscriptions') }} FINAL
+    FROM {{ source('production', 'fact_subscriptions') }} FINAL
     GROUP BY account_id
 )
 
 SELECT
-    a.account_id,
-    a.account_name,
+    a.account_id                                                                 AS account_id,
+    a.account_name                                                               AS account_name,
     coalesce(ls.plan_tier, a.plan_tier)                                     AS plan_tier,
     a.country,
     a.industry,
@@ -153,8 +167,11 @@ SELECT
     dateDiff('day', la.last_sub_date, today())                              AS days_since_last_activity,
     now()                                                                   AS _refreshed_at
 
-FROM {{ source('warehouse', 'dim_accounts') }} FINAL a
-JOIN affected af ON a.account_id = af.account_id
+FROM (
+    SELECT account_id, account_name, plan_tier, country, industry
+    FROM {{ source('production', 'dim_accounts') }} FINAL
+) AS a
+JOIN affected AS af ON a.account_id = af.account_id
 LEFT JOIN latest_sub_1 ls  ON a.account_id = ls.account_id
 LEFT JOIN usage_30d u30    ON a.account_id = u30.account_id
 LEFT JOIN avg_sat sat      ON a.account_id = sat.account_id

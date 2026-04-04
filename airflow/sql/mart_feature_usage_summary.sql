@@ -26,7 +26,7 @@ SELECT
                                                         AS avg_usage_per_sub,
     countIf(is_beta_feature = 1)                        AS beta_usage_count,
     now()                                               AS _refreshed_at
-FROM warehouse.fact_feature_usage FINAL
+FROM production.fact_feature_usage FINAL
 WHERE toYear(usage_date) = {year:UInt16}
   AND toMonth(usage_date) = {month:UInt8}
 GROUP BY feature_name

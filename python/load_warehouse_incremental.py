@@ -1,7 +1,7 @@
 """
 load_warehouse_incremental.py
 ==============================
-Incremental loading from ClickHouse staging → warehouse dims & facts.
+Incremental loading from ClickHouse staging → production dims & facts.
 
 Pattern
 -------
@@ -14,12 +14,12 @@ Pattern
 
 Load order
 ----------
-1. warehouse.dim_accounts      (no deps)
-2. warehouse.dim_plans         (static seed — nothing to do)
-3. warehouse.fact_subscriptions (depends on dim_accounts, dim_plans)
-4. warehouse.fact_churn_events  (depends on dim_accounts)
-5. warehouse.fact_feature_usage (depends on fact_subscriptions)
-6. warehouse.fact_support_tickets (depends on dim_accounts)
+1. production.dim_accounts      (no deps)
+2. production.dim_plans         (static seed — nothing to do)
+3. production.fact_subscriptions (depends on dim_accounts, dim_plans)
+4. production.fact_churn_events  (depends on dim_accounts)
+5. production.fact_feature_usage (depends on fact_subscriptions)
+6. production.fact_support_tickets (depends on dim_accounts)
 """
 
 import os
@@ -89,31 +89,22 @@ def load_incremental(
     Rows are filtered by date_col in (watermark, load_date].
     _updated_at is set to current epoch ms so newer inserts always win.
 
-    Dynamically resolves overlapping columns between source and target
-    (excluding _updated_at which is always injected).
-
     Returns the number of rows inserted.
     """
     updated_at_ms = int(datetime.utcnow().timestamp() * 1000)
 
-    # Get column lists from both tables
-    src_cols_q = ch.query(f"SELECT name FROM system.columns WHERE database='{source_table.split('.')[0]}' AND table='{source_table.split('.')[1]}' ORDER BY position")
-    tgt_cols_q = ch.query(f"SELECT name FROM system.columns WHERE database='{target_table.split('.')[0]}' AND table='{target_table.split('.')[1]}' ORDER BY position")
+    query = f"""
+    INSERT INTO {target_table}
+    SELECT
+        *,
+        {updated_at_ms} AS _updated_at
+    {extra_select}
+    FROM {source_table}
+    WHERE toDate({date_col}) > toDate('{watermark}')
+      AND toDate({date_col}) <= toDate('{load_date}')
+    """
 
-    src_cols = [r[0] for r in src_cols_q.result_rows]
-    tgt_cols = [r[0] for r in tgt_cols_q.result_rows]
-
-    # Use only columns that exist in BOTH tables (preserving target order),
-    # excluding _updated_at (we inject it explicitly)
-    shared = [c for c in tgt_cols if c in src_cols and c != "_updated_at"]
-
-    if not shared:
-        log.warning(f"{source_table} → {target_table}: no shared columns — skipping")
-        return 0
-
-    col_list = ", ".join(shared)
-
-    # Count rows to insert
+    # Get count before insert
     count_q = f"""
     SELECT count()
     FROM {source_table}
@@ -126,17 +117,6 @@ def load_incremental(
     if n_rows == 0:
         log.info(f"{source_table} → {target_table}: 0 new rows — skipping")
         return 0
-
-    query = f"""
-    INSERT INTO {target_table} ({col_list}, _updated_at)
-    SELECT
-        {col_list},
-        {updated_at_ms} AS _updated_at
-    {extra_select}
-    FROM {source_table}
-    WHERE toDate({date_col}) > toDate('{watermark}')
-      AND toDate({date_col}) <= toDate('{load_date}')
-    """
 
     ch.command(query)
     log.info(f"{source_table} → {target_table}: inserted {n_rows:,} rows")
@@ -151,7 +131,7 @@ def load_dim_accounts(ch, watermark: date, load_date: date) -> int:
     return load_incremental(
         ch,
         source_table="staging.stg_accounts",
-        target_table="warehouse.dim_accounts",
+        target_table="production.dim_accounts",
         pk="account_id",
         date_col="signup_date",
         watermark=watermark,
@@ -167,70 +147,27 @@ def load_dim_accounts(ch, watermark: date, load_date: date) -> int:
 
 def load_fact_subscriptions(ch, watermark: date, load_date: date) -> int:
     """
-    Load subscriptions from staging → warehouse.
-
-    The warehouse table has columns not in staging (subscription_sequence,
-    days_active, reactivation_flag). We compute them via SQL during the load:
-      - subscription_sequence: ROW_NUMBER() OVER(PARTITION BY account_id ORDER BY start_date)
-      - days_active:           dateDiff('day', start_date, end_date)
-      - reactivation_flag:     renamed from staging.is_reactivation
+    Loads subscriptions + derived metrics (subscription_sequence, days_active)
+    via a SQL window function expressed as ClickHouse-compatible aggregation.
+    Note: full window functions are computed in Python transform step;
+    here we simply copy the already-enriched staging rows.
     """
-    updated_at_ms = int(datetime.utcnow().timestamp() * 1000)
-
-    count_q = f"""
-    SELECT count()
-    FROM staging.stg_subscriptions
-    WHERE toDate(start_date) > toDate('{watermark}')
-      AND toDate(start_date) <= toDate('{load_date}')
-    """
-    result = ch.query(count_q)
-    n_rows = result.result_rows[0][0] if result.result_rows else 0
-
-    if n_rows == 0:
-        log.info(f"stg_subscriptions → fact_subscriptions: 0 new rows — skipping")
-        return 0
-
-    query = f"""
-    INSERT INTO warehouse.fact_subscriptions
-    SELECT
-        subscription_id,
-        account_id,
-        start_date,
-        end_date,
-        plan_tier,
-        seats,
-        price,
-        discount_value,
-        mrr_amount,
-        arr_amount,
-        is_trial,
-        upgrade_flag,
-        downgrade_flag,
-        churn_flag,
-        is_reactivation                                          AS reactivation_flag,
-        billing_frequency,
-        auto_renew_flag,
-        toInt32(row_number() OVER (
-            PARTITION BY account_id ORDER BY start_date
-        ))                                                       AS subscription_sequence,
-        toInt32(dateDiff('day', start_date, end_date))           AS days_active,
-        _source_system,
-        {updated_at_ms}                                          AS _updated_at
-    FROM staging.stg_subscriptions
-    WHERE toDate(start_date) > toDate('{watermark}')
-      AND toDate(start_date) <= toDate('{load_date}')
-    """
-
-    ch.command(query)
-    log.info(f"stg_subscriptions → fact_subscriptions: inserted {n_rows:,} rows")
-    return n_rows
+    return load_incremental(
+        ch,
+        source_table="staging.stg_subscriptions",
+        target_table="production.fact_subscriptions",
+        pk="subscription_id",
+        date_col="start_date",
+        watermark=watermark,
+        load_date=load_date,
+    )
 
 
 def load_fact_churn_events(ch, watermark: date, load_date: date) -> int:
     return load_incremental(
         ch,
         source_table="staging.stg_churn_events",
-        target_table="warehouse.fact_churn_events",
+        target_table="production.fact_churn_events",
         pk="churn_event_id",
         date_col="churn_date",
         watermark=watermark,
@@ -242,7 +179,7 @@ def load_fact_feature_usage(ch, watermark: date, load_date: date) -> int:
     return load_incremental(
         ch,
         source_table="staging.stg_feature_usage",
-        target_table="warehouse.fact_feature_usage",
+        target_table="production.fact_feature_usage",
         pk="usage_id",
         date_col="usage_date",
         watermark=watermark,
@@ -254,7 +191,7 @@ def load_fact_support_tickets(ch, watermark: date, load_date: date) -> int:
     return load_incremental(
         ch,
         source_table="staging.stg_support_tickets",
-        target_table="warehouse.fact_support_tickets",
+        target_table="production.fact_support_tickets",
         pk="ticket_id",
         date_col="submitted_at",
         watermark=watermark,

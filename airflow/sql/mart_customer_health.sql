@@ -21,7 +21,7 @@ ALTER TABLE mart.customer_health_score
 DELETE WHERE account_id IN (
     -- accounts with new subscriptions
     SELECT DISTINCT account_id
-    FROM warehouse.fact_subscriptions FINAL
+    FROM production.fact_subscriptions FINAL
     WHERE toDate(start_date) > toDate('{from_date}')
       AND toDate(start_date) <= toDate('{to_date}')
 
@@ -29,7 +29,7 @@ DELETE WHERE account_id IN (
 
     -- accounts with new churn events
     SELECT DISTINCT account_id
-    FROM warehouse.fact_churn_events FINAL
+    FROM production.fact_churn_events FINAL
     WHERE toDate(churn_date) > toDate('{from_date}')
       AND toDate(churn_date) <= toDate('{to_date}')
 
@@ -37,7 +37,7 @@ DELETE WHERE account_id IN (
 
     -- accounts with new support tickets
     SELECT DISTINCT account_id
-    FROM warehouse.fact_support_tickets FINAL
+    FROM production.fact_support_tickets FINAL
     WHERE toDate(submitted_at) > toDate('{from_date}')
       AND toDate(submitted_at) <= toDate('{to_date}')
 );
@@ -60,7 +60,7 @@ latest_sub AS (
         start_date,
         end_date,
         ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY start_date DESC) AS rn
-    FROM warehouse.fact_subscriptions FINAL
+    FROM production.fact_subscriptions FINAL
 ),
 
 -- Last 30 days usage per account (via subscription linkage)
@@ -68,8 +68,8 @@ usage_30d AS (
     SELECT
         s.account_id,
         sum(u.usage_count) AS usage_cnt
-    FROM warehouse.fact_feature_usage FINAL u
-    JOIN warehouse.fact_subscriptions FINAL s USING (subscription_id)
+    FROM production.fact_feature_usage FINAL u
+    JOIN production.fact_subscriptions FINAL s USING (subscription_id)
     WHERE u.usage_date >= (today() - 30)
     GROUP BY s.account_id
 ),
@@ -79,7 +79,7 @@ avg_sat AS (
     SELECT
         account_id,
         avg(satisfaction_score) AS avg_score
-    FROM warehouse.fact_support_tickets FINAL
+    FROM production.fact_support_tickets FINAL
     WHERE satisfaction_score IS NOT NULL
     GROUP BY account_id
 ),
@@ -89,28 +89,28 @@ high_tickets AS (
     SELECT
         account_id,
         countIf(priority = 'high' AND closed_at IS NULL) AS cnt
-    FROM warehouse.fact_support_tickets FINAL
+    FROM production.fact_support_tickets FINAL
     GROUP BY account_id
 ),
 
 -- Days since last activity (latest event date across all fact tables)
 last_activity AS (
     SELECT account_id, max(start_date) AS last_dt
-    FROM warehouse.fact_subscriptions FINAL
+    FROM production.fact_subscriptions FINAL
     GROUP BY account_id
 ),
 
 -- Base account info (from affected accounts only)
 affected_accounts AS (
-    SELECT DISTINCT account_id FROM warehouse.fact_subscriptions FINAL
+    SELECT DISTINCT account_id FROM production.fact_subscriptions FINAL
     WHERE toDate(start_date) > toDate('{from_date}')
       AND toDate(start_date) <= toDate('{to_date}')
     UNION ALL
-    SELECT DISTINCT account_id FROM warehouse.fact_churn_events FINAL
+    SELECT DISTINCT account_id FROM production.fact_churn_events FINAL
     WHERE toDate(churn_date) > toDate('{from_date}')
       AND toDate(churn_date) <= toDate('{to_date}')
     UNION ALL
-    SELECT DISTINCT account_id FROM warehouse.fact_support_tickets FINAL
+    SELECT DISTINCT account_id FROM production.fact_support_tickets FINAL
     WHERE toDate(submitted_at) > toDate('{from_date}')
       AND toDate(submitted_at) <= toDate('{to_date}')
 )
@@ -151,7 +151,7 @@ SELECT
     dateDiff('day', la.last_dt, today())                    AS days_since_last_activity,
     now()                                                   AS _refreshed_at
 
-FROM warehouse.dim_accounts FINAL a
+FROM production.dim_accounts FINAL a
 JOIN affected_accounts aa ON a.account_id = aa.account_id
 LEFT JOIN (SELECT * FROM latest_sub WHERE rn = 1) ls ON a.account_id = ls.account_id
 LEFT JOIN usage_30d u30 ON a.account_id = u30.account_id

@@ -1,10 +1,10 @@
 version: 2
 
 sources:
-  - name: warehouse
-    database: default          # ClickHouse: databases are schemas in dbt-clickhouse
-    schema: warehouse
-    description: "Normalized warehouse layer — dims and facts loaded by load_warehouse_incremental.py"
+  - name: production
+    database: production
+    schema: production
+    description: "Production layer — dims and facts loaded by load_warehouse_incremental.py"
     tables:
       - name: dim_accounts
         description: "Account dimension from CRM system"

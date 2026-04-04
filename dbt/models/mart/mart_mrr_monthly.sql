@@ -40,11 +40,14 @@ active_subs AS (
         subscription_sequence,
         toYear(start_date)  AS sub_year,
         toMonth(start_date) AS sub_month
-    FROM {{ source('warehouse', 'fact_subscriptions') }} FINAL
+    FROM {{ source('production', 'fact_subscriptions') }} FINAL
     WHERE
         -- Only months we need to refresh (incremental filter)
         {% if is_incremental() %}
-          toYYYYMM(start_date) >= toYYYYMM(now() - toIntervalMonth(1))
+          toYYYYMM(start_date) >= (
+            SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+            FROM {{ this }}
+          )
         {% else %}
           1 = 1
         {% endif %}
@@ -66,7 +69,10 @@ months_in_scope AS (
     )
     WHERE 1 = 1
     {% if is_incremental() %}
-      AND toYYYYMM(m) >= toYYYYMM(now() - toIntervalMonth(1))
+      AND toYYYYMM(m) >= (
+        SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+        FROM {{ this }}
+      )
     {% endif %}
 ),
 
@@ -76,10 +82,13 @@ new_accts AS (
         toYear(start_date)  AS year,
         toMonth(start_date) AS month,
         account_id
-    FROM {{ source('warehouse', 'fact_subscriptions') }} FINAL
+    FROM {{ source('production', 'fact_subscriptions') }} FINAL
     WHERE subscription_sequence = 1
     {% if is_incremental() %}
-      AND toYYYYMM(start_date) >= toYYYYMM(now() - toIntervalMonth(1))
+      AND toYYYYMM(start_date) >= (
+        SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+        FROM {{ this }}
+      )
     {% endif %}
 ),
 
@@ -89,9 +98,12 @@ churned_accts AS (
         toYear(churn_date)  AS year,
         toMonth(churn_date) AS month,
         account_id
-    FROM {{ source('warehouse', 'fact_churn_events') }} FINAL
+    FROM {{ source('production', 'fact_churn_events') }} FINAL
     {% if is_incremental() %}
-    WHERE toYYYYMM(churn_date) >= toYYYYMM(now() - toIntervalMonth(1))
+    WHERE toYYYYMM(churn_date) >= (
+      SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+      FROM {{ this }}
+    )
     {% endif %}
 ),
 

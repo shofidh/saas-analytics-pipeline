@@ -37,10 +37,13 @@ SELECT
     )                                                               AS avg_usage_per_sub,
     toUInt32(countIf(is_beta_feature = 1))                          AS beta_usage_count,
     now()                                                           AS _refreshed_at
-FROM {{ source('warehouse', 'fact_feature_usage') }} FINAL
+FROM {{ source('production', 'fact_feature_usage') }} FINAL
 WHERE 1 = 1
 {% if is_incremental() %}
-  AND toYYYYMM(usage_date) >= toYYYYMM(now() - toIntervalMonth(1))
+  AND toYYYYMM(usage_date) >= (
+    SELECT coalesce(max(year * 100 + month), toYYYYMM(toDate('2024-01-01')))
+    FROM {{ this }}
+  )
 {% endif %}
 GROUP BY year, month, feature_name
 ORDER BY year, month, total_usage_count DESC

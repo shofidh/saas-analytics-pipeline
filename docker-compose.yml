@@ -54,6 +54,7 @@ services:
       - "9009:9000" # Native protocol
     volumes:
       - clickhouse_data:/var/lib/clickhouse
+      - ./airflow/sql/ddl_warehouse.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - saas-net
     healthcheck:
@@ -136,6 +137,7 @@ services:
       - ./airflow/dags:/opt/airflow/dags
       - ./data:/app/data
       - ./python:/app
+      - ./dbt:/opt/dbt                 # dbt project for dbt_run_marts task
       - airflow_data:/opt/airflow      # shared DB file between webserver + scheduler
     depends_on:
       clickhouse:

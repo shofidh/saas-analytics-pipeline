@@ -216,25 +216,8 @@ def enrich_subscriptions(df: pd.DataFrame) -> pd.DataFrame:
     df["start_date"] = pd.to_datetime(df["start_date"], errors="coerce")
     df["end_date"]   = pd.to_datetime(df["end_date"],   errors="coerce")
 
-    # Drop raw CSV columns that will be replaced by derived versions
-    for col in ["next_start"]:
-        if col in df.columns:
-            df = df.drop(columns=[col])
-
-    # Cast boolean-like flags safely (Parquet may store as mixed types)
-    for flag_col in ["is_trial", "upgrade_flag", "downgrade_flag",
-                     "churn_flag", "auto_renew_flag"]:
-        if flag_col in df.columns:
-            df[flag_col] = pd.to_numeric(df[flag_col], errors="coerce").fillna(0).astype(int)
-
     # Sort for window operations
     df = df.sort_values(["account_id", "start_date"]).reset_index(drop=True)
-
-    # subscription_sequence: rank within account (1 = first ever)
-    df["subscription_sequence"] = df.groupby("account_id").cumcount() + 1
-
-    # days_active
-    df["days_active"] = (df["end_date"] - df["start_date"]).dt.days.clip(lower=0)
 
     # Gap analysis helpers
     df["_next_start"] = df.groupby("account_id")["start_date"].shift(-1)
@@ -246,11 +229,24 @@ def enrich_subscriptions(df: pd.DataFrame) -> pd.DataFrame:
     # churn_flag: no renewal within gap threshold, or last known subscription
     df["churn_flag"] = gap_to_next.isna() | (gap_to_next > CHURN_GAP_DAYS)
 
-    # is_reactivation: previous gap > threshold (returning customer)
-    df["is_reactivation"] = (gap_from_prev.notna() & (gap_from_prev > REACTIVATION_GAP_DAYS)).astype(int)
+    # reactivation_flag: previous gap > threshold (returning customer)
+    df["reactivation_flag"] = gap_from_prev.notna() & (gap_from_prev > REACTIVATION_GAP_DAYS)
+
+    # subscription_sequence: chronological rank per account (1 = first subscription)
+    df["subscription_sequence"] = (
+        df.groupby("account_id")["start_date"]
+        .rank(method="first")
+        .astype(int)
+    )
+
+    # days_active: duration of subscription in days
+    df["days_active"] = (
+        (df["end_date"] - df["start_date"]).dt.days
+        .clip(lower=0).fillna(0).astype(int)
+    )
 
     # MRR / ARR
-    df["mrr_amount"] = pd.to_numeric(df["mrr_amount"], errors="coerce").clip(lower=0).fillna(0).round(2)
+    df["mrr_amount"] = df["mrr_amount"].clip(lower=0).fillna(0).round(2)
     df["arr_amount"] = (df["mrr_amount"] * 12).round(2)
 
     df.drop(columns=["_next_start", "_prev_end"], inplace=True)
@@ -329,7 +325,8 @@ STAGING_COLUMNS = {
         "subscription_id", "account_id", "start_date", "end_date", "plan_tier",
         "seats", "price", "discount_value", "mrr_amount", "arr_amount",
         "is_trial", "upgrade_flag", "downgrade_flag", "churn_flag",
-        "billing_frequency", "auto_renew_flag", "is_reactivation",
+        "reactivation_flag", "billing_frequency", "auto_renew_flag",
+        "subscription_sequence", "days_active",
         "_ingestion_time", "_source_system", "_batch_id",
     ],
     "churn_events": [

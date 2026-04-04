@@ -20,7 +20,7 @@ WITH
 -- Active accounts at start of target month (denominator for churn rate)
 active_start AS (
     SELECT countDistinct(account_id) AS cnt
-    FROM warehouse.fact_subscriptions FINAL
+    FROM production.fact_subscriptions FINAL
     WHERE
         toYear(start_date) <= {year:UInt16}
         AND toMonth(start_date) <= {month:UInt8}
@@ -37,7 +37,7 @@ churn_events AS (
         count()                         AS churn_count,
         sum(refund_amount_usd)          AS total_refund_usd,
         countIf(is_reactivation = 1)    AS reactivation_count
-    FROM warehouse.fact_churn_events FINAL
+    FROM production.fact_churn_events FINAL
     WHERE toYear(churn_date) = {year:UInt16}
       AND toMonth(churn_date) = {month:UInt8}
     GROUP BY reason_code
